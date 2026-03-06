@@ -44,7 +44,7 @@ const indicatorInfo = {
     def: "Persentase penduduk yang memiliki pengeluaran per kapita sebulan kurang dari garis kemiskinan.",
     img: "assets/img/kemiskinan.jpg",
     insight: (rn) =>
-      `Pada September 2025, persentase penduduk miskin (penduduk dengan pengeluaran per kapita per bulan di bawah Garis Kemiskinan) di Provinsi Kepulauan Riau mencapai 4,26 persen`,
+      `Pada September 2025, jumlah penduduk miskin (penduduk dengan pengeluaran per kapita per bulan di bawah Garis Kemiskinan) di Provinsi Kepulauan Riau mencapai 114,55 ribu orang (4,26 persen), berkurang 2,7 ribu orang dibandingkan dengan kondisi Maret 2025 yang sebesar 117,28 ribu orang (4,44 persen)`,
   },
   gini: {
     def: "Indikator yang menunjukkan tingkat ketimpangan pengeluaran secara menyeluruh",
