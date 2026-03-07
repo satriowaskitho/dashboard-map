@@ -119,7 +119,7 @@ function openModal(
 
   const charts = {
     ekonomi: () => {
-      title.textContent = `Pertumbuhan Ekonomi ${regionName} (%)`;
+      title.textContent = `Pertumbuhan Ekonomi ${regionName} (C to C) Triwulan IV (%)`;
       let dataArr = [];
       let labelsArr = dataEkonomi.tahun;
 
