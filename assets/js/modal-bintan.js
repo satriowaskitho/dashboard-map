@@ -15,7 +15,7 @@ const indicatorInfo = {
     def: "Persentase jumlah pengangguran terhadap jumlah angkatan kerja",
     img: "assets/img/TPT.jpg",
     insight: (rn) =>
-      `TPT menunjukkan tren menurun dari 2021 hingga 2024 dan naik kembali pada 2025.`,
+      `TPT berhasil turun hampir separuhnya sejak puncak pandemi 2020 (8,86%), dan kini stabil melandai di kisaran 4,77% (2026) yang menandakan pasar kerja tetap terjaga.`,
   },
   pdrb: {
     def: "Nilai PDRB dibagi jumlah penduduk dalam suatu wilayah pada periode tertentu",
@@ -33,19 +33,19 @@ const indicatorInfo = {
     def: "Persentase penduduk usia sekolah SMA/SMK yang sedang menempuh pendidikan tingkat menengah atas.",
     img: "assets/img/APS.jpg",
     insight: (rn) =>
-      `AAngka partisipasi sekolah (APS) SMA/SMK (16-18 tahun) pada tahun 2025 di ${rn} sebesar 91,05%.`,
+      `Angka partisipasi sekolah (APS) SMA/SMK (16-18 tahun) pada tahun 2025 di ${rn} sebesar 91,05%.`,
   },
   ipg: {
     def: "Indikator yang mengukur kesetaraan capaian pembangunan manusia antara laki-laki dan perempuan.",
     img: "assets/img/IPG.jpeg",
     insight: (rn) =>
-      `IPG di ${rn} menunjukkan tren meningkat dari yang menunjukkan kesetaraan capaian pembangunan antara laki-laki dan perempuan semakin membaik`,
+      `IPG Kabupaten Bintan meningkat dari 93,80 (2020) ke 94,90 (2024) dan tercatat sebesar 94,00 pada 2025, mencerminkan kesetaraan pembangunan laki-laki dan perempuan yang terjaga baik.`,
   },
   kemiskinan: {
     def: "Persentase penduduk yang memiliki pengeluaran per kapita sebulan kurang dari garis kemiskinan.",
     img: "assets/img/kemiskinan.jpg",
     insight: (rn) =>
-      `Angka kemiskinan di ${rn} menunjukkan tren penurunan dari tahun 2023 hingga 2025.`,
+      `Angka kemiskinan di ${rn} menunjukkan tren penurunan dari tahun 2023 hingga 2026.`,
   },
   gini: {
     def: "Indikator yang menunjukkan tingkat ketimpangan pengeluaran secara menyeluruh",
@@ -67,7 +67,7 @@ const indicatorInfo = {
     def: "Jumlah kunjungan wisatawan asing ke suatu wilayah dalam periode tertentu.",
     img: "assets/img/wisata.jpeg",
     insight: (rn) =>
-      `Kunjungan wisman di ${rn} meningkat tajam di akhir tahun 2025.`,
+      `Setelah sempat merosot pada awal 2025 (9.815) dan memuncak pada libur akhir tahun (35.187), kunjungan wisman Bintan sepanjang 2026 bergerak lebih stabil di kisaran 20–30 ribu kunjungan per bulan (26.372 pada September 2026), menandakan pemulihan pariwisata yang semakin konsisten.`,
   },
   ekspor: {
     def: "-",
@@ -310,7 +310,7 @@ function openModal(
       return {
         type: "line",
         data: {
-          labels: dataGini.tahun,
+          labels: dataGini.tahun.slice(0, dataArr.length),
           datasets: [
             {
               label: "Gini Ratio",
@@ -446,7 +446,7 @@ function openModal(
             },
           ],
         },
-        options: lineOpts("%"),
+        options: tradeValueLabelOpts(dataArr, "%"),
       };
     },
     wisman: () => {
@@ -527,11 +527,22 @@ function openModal(
           plugins: {
             legend: { display: true, position: "bottom" },
             datalabels: {
-              display: true,
+              display: (context) => {
+                if (context.datasetIndex !== 0) return false;
+                const values = context.chart.data.datasets[0].data;
+                const validValues = values
+                  .map((value, index) => ({ value, index }))
+                  .filter((point) => Number.isFinite(point.value));
+                if (!validValues.length) return false;
+                const minIndex = validValues.reduce((best, point) => point.value < best.value ? point : best).index;
+                const maxIndex = validValues.reduce((best, point) => point.value > best.value ? point : best).index;
+                const latestIndex = validValues[validValues.length - 1].index;
+                return context.active || [minIndex, maxIndex, latestIndex].includes(context.dataIndex);
+              },
               clip: false,
               align: "top",
               anchor: "end",
-              offset: 2,
+              offset: 4,
               formatter: (v) =>
                 v === 0 || v === null ? "" : v.toLocaleString("id-ID"),
               color: "#1e293b",
@@ -856,5 +867,31 @@ function lineOptsDecimal(suffix, decimals = 2) {
       },
     },
     layout: { padding: { top: isMobile() ? 24 : 40, bottom: 10, right: isMobile() ? 10 : 40, left: isMobile() ? 6 : 30 } },
+  };
+}
+
+function tradeValueLabelOpts(values, suffix = "") {
+  const base = lineOpts(suffix);
+  const validValues = values
+    .map((value, index) => ({ value, index }))
+    .filter((point) => Number.isFinite(point.value));
+  const minIndex = validValues.length
+    ? validValues.reduce((best, point) => point.value < best.value ? point : best).index
+    : -1;
+  const maxIndex = validValues.length
+    ? validValues.reduce((best, point) => point.value > best.value ? point : best).index
+    : -1;
+  const latestIndex = validValues.length ? validValues[validValues.length - 1].index : -1;
+  const alwaysShow = new Set([minIndex, maxIndex, latestIndex]);
+
+  return {
+    ...base,
+    plugins: {
+      ...base.plugins,
+      datalabels: {
+        ...base.plugins.datalabels,
+        display: (context) => alwaysShow.has(context.dataIndex) || context.active,
+      },
+    },
   };
 }

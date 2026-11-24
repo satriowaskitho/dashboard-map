@@ -14,7 +14,7 @@ const indicatorInfo = {
   tpt: {
     def: "Persentase jumlah pengangguran terhadap jumlah angkatan kerja",
     img: "assets/img/TPT.jpg",
-    insight: (rn) => `TPT fluktuatif dari 2022 hingga 2025 di ${rn}.`,
+    insight: (rn) => `TPT fluktuatif dari 2022 hingga 2026 di ${rn}.`,
   },
   pdrb: {
     def: "Nilai PDRB dibagi jumlah penduduk dalam suatu wilayah pada periode tertentu",
@@ -44,7 +44,7 @@ const indicatorInfo = {
     def: "Persentase penduduk yang memiliki pengeluaran per kapita sebulan kurang dari garis kemiskinan.",
     img: "assets/img/kemiskinan.jpg",
     insight: (rn) =>
-      `Angka kemiskinan di ${rn} menunjukkan tren penurunan dari tahun 2023 hingga 2025.`,
+      `Angka kemiskinan di ${rn} menunjukkan tren penurunan dari tahun 2023 hingga 2026.`,
   },
   gini: {
     def: "Indikator yang menunjukkan tingkat ketimpangan pengeluaran secara menyeluruh",
@@ -335,7 +335,7 @@ function openModal(type, regionKey = "lingga", regionName = "Kepulauan Riau") {
       return {
         type: "line",
         data: {
-          labels: dataGini.tahun,
+          labels: dataGini.tahun.slice(0, dataArr.length),
           datasets: [
             {
               label: "Gini Ratio",
@@ -471,7 +471,7 @@ function openModal(type, regionKey = "lingga", regionName = "Kepulauan Riau") {
             },
           ],
         },
-        options: lineOpts("%"),
+        options: tradeValueLabelOpts(dataArr, "%"),
       };
     },
     wisman: () => {
@@ -851,5 +851,31 @@ function lineOpts(suffix) {
       },
     },
     layout: { padding: { top: isMobile() ? 24 : 40, bottom: 10, right: isMobile() ? 10 : 40, left: isMobile() ? 6 : 30 } },
+  };
+}
+
+function tradeValueLabelOpts(values, suffix = "") {
+  const base = lineOpts(suffix);
+  const validValues = values
+    .map((value, index) => ({ value, index }))
+    .filter((point) => Number.isFinite(point.value));
+  const minIndex = validValues.length
+    ? validValues.reduce((best, point) => point.value < best.value ? point : best).index
+    : -1;
+  const maxIndex = validValues.length
+    ? validValues.reduce((best, point) => point.value > best.value ? point : best).index
+    : -1;
+  const latestIndex = validValues.length ? validValues[validValues.length - 1].index : -1;
+  const alwaysShow = new Set([minIndex, maxIndex, latestIndex]);
+
+  return {
+    ...base,
+    plugins: {
+      ...base.plugins,
+      datalabels: {
+        ...base.plugins.datalabels,
+        display: (context) => alwaysShow.has(context.dataIndex) || context.active,
+      },
+    },
   };
 }

@@ -14,7 +14,7 @@ const indicatorInfo = {
   tpt: {
     def: "Persentase jumlah pengangguran terhadap jumlah angkatan kerja",
     img: "assets/img/TPT.jpg",
-    insight: (rn) => `TPT menunjukkan tren menurun dari 2021 hingga 2024.`,
+    insight: (rn) => `TPT menunjukkan tren menurun dari 2021 hingga 2026.`,
   },
   pdrb: {
     def: "Nilai PDRB dibagi jumlah penduduk dalam suatu wilayah pada periode tertentu",
@@ -44,13 +44,13 @@ const indicatorInfo = {
     def: "Persentase penduduk yang memiliki pengeluaran per kapita sebulan kurang dari garis kemiskinan.",
     img: "assets/img/kemiskinan.jpg",
     insight: (rn) =>
-      `Pada September 2025, jumlah penduduk miskin (penduduk dengan pengeluaran per kapita per bulan di bawah Garis Kemiskinan) di Provinsi Kepulauan Riau mencapai 114,55 ribu orang (4,26 persen), berkurang 2,7 ribu orang dibandingkan dengan kondisi Maret 2025 yang sebesar 117,28 ribu orang (4,44 persen)`,
+      `Persentase penduduk miskin di Provinsi Kepulauan Riau terus menunjukkan tren penurunan yang konsisten dari 6,03 persen pada September 2022 hingga mencapai titik terendah sebesar 4,09 persen pada Maret 2026.`,
   },
   gini: {
     def: "Indikator yang menunjukkan tingkat ketimpangan pengeluaran secara menyeluruh",
     img: "assets/img/giniratio.jpeg",
     insight: (rn) =>
-      `Gini Ratio Kepulauan Riau pada September 2025 sebesar 0,385.`,
+      `Gini Ratio Kepulauan Riau pada tahun 2026 tercatat sebesar 0,354, menurun dibandingkan kondisi tahun 2025 yang sebesar 0,385.`,
   },
   inflasi: {
     def: "Persentase kenaikan harga barang dan jasa secara umum dan terus-menerus dalam periode tertentu.",
@@ -66,19 +66,19 @@ const indicatorInfo = {
   wisman: {
     def: "Jumlah kunjungan wisatawan asing ke suatu wilayah dalam periode tertentu.",
     img: "assets/img/wisata.jpeg",
-    insight: (rn) => `Kunjungan wisman di ${rn} meningkat diakhir tahun 2025`,
+    insight: (rn) => `Pada September 2026, kunjungan wisman ke Kepulauan Riau mencapai 200.584 kunjungan, naik dibandingkan kondisi Januari 2025 yang sebanyak 125.700 kunjungan.`,
   },
   ekspor: {
     def: "Nilai barang dan jasa yang dijual ke luar negeri dalam periode tertentu.",
     img: "assets/img/ekspor.png",
     insight: (rn) =>
-      `Nilai ekspor ${rn} pada Januari 2026 mencapai US$2,02 miliar.`,
+      `Nilai Ekspor Kepulauan Riau pada September 2026 tercatat sebesar US$2.345 miliar, melonjak tajam setelah mengalami penurunan pada Agustus 2026 dan mendekati rekor tertingginya pada Mei 2025 yang mencapai US$2.386 miliar.`,
   },
   impor: {
     def: "Nilai barang dan jasa yang dibeli dari luar negeri dalam periode tertentu.",
     img: "assets/img/impor.jpeg",
     insight: (rn) =>
-      `Nilai impor di ${rn} pada Januari 2026 mencapai US$2,07 miliar.`,
+      `Nilai impor Kepulauan Riau pada September 2026 tercatat sebesar US$2.438 miliar, kembali meningkat setelah mengalami koreksi pada Juli–Agustus 2026 pascamencapai puncaknya sebesar US$2.678 miliar pada Juni 2026.`,
   },
 };
 
@@ -222,7 +222,30 @@ function openModal(
             },
           ],
         },
-        options: lineOpts(""),
+        options: {
+          ...lineOpts(""),
+          plugins: {
+            ...lineOpts("").plugins,
+            datalabels: {
+              ...lineOpts("").plugins.datalabels,
+              // Nilai bulanan panjang bertumpuk pada grafik; tampilkan saat titik dipilih.
+              display: (context) => context.active,
+            },
+          },
+          scales: {
+            ...lineOpts("").scales,
+            x: {
+              ...lineOpts("").scales.x,
+              ticks: {
+                ...lineOpts("").scales.x.ticks,
+                autoSkip: true,
+                maxTicksLimit: 10,
+                maxRotation: 0,
+                minRotation: 0,
+              },
+            },
+          },
+        },
       };
     },
     ipg: () => {
@@ -252,7 +275,30 @@ function openModal(
             },
           ],
         },
-        options: lineOpts(""),
+        options: {
+          ...lineOpts(""),
+          plugins: {
+            ...lineOpts("").plugins,
+            datalabels: {
+              ...lineOpts("").plugins.datalabels,
+              // Nilai bulanan panjang bertumpuk pada grafik; tampilkan saat titik dipilih.
+              display: (context) => context.active,
+            },
+          },
+          scales: {
+            ...lineOpts("").scales,
+            x: {
+              ...lineOpts("").scales.x,
+              ticks: {
+                ...lineOpts("").scales.x.ticks,
+                autoSkip: true,
+                maxTicksLimit: 10,
+                maxRotation: 0,
+                minRotation: 0,
+              },
+            },
+          },
+        },
       };
     },
     tpt: () => {
@@ -329,6 +375,7 @@ function openModal(
           "Sep 2024",
           "Mar 2025",
           "Sep 2025",
+          "Mar 2026"
         ];
       }
     
@@ -494,7 +541,7 @@ function openModal(
             },
           ],
         },
-        options: lineOpts("%"),
+        options: tradeValueLabelOpts(dataArr, "%"),
       };
     },
     wisman: () => {
@@ -575,11 +622,24 @@ function openModal(
           plugins: {
             legend: { display: true, position: "bottom" },
             datalabels: {
-              display: true,
+              // Selalu tampilkan ekstrem dan data terbaru; nilai lain muncul saat titik dipilih.
+              display: (context) => {
+                // Grafik menumpuk dataset batang dan garis; gunakan indeks data utama agar ekstrem dihitung sekali.
+                if (context.datasetIndex !== 0) return false;
+                const values = context.chart.data.datasets[0].data;
+                const validValues = values
+                  .map((value, index) => ({ value, index }))
+                  .filter((point) => Number.isFinite(point.value));
+                if (!validValues.length) return false;
+                const minIndex = validValues.reduce((best, point) => point.value < best.value ? point : best).index;
+                const maxIndex = validValues.reduce((best, point) => point.value > best.value ? point : best).index;
+                const latestIndex = validValues[validValues.length - 1].index;
+                return context.active || [minIndex, maxIndex, latestIndex].includes(context.dataIndex);
+              },
               clip: false,
               align: "top",
               anchor: "end",
-              offset: 2,
+              offset: 4,
               formatter: (v) =>
                 v === 0 || v === null ? "" : v.toLocaleString("id-ID"),
               color: "#1e293b",
@@ -587,10 +647,18 @@ function openModal(
             },
           },
           scales: {
-            x: { grid: { display: false } },
+            x: {
+              grid: { display: false },
+              ticks: {
+                autoSkip: true,
+                maxTicksLimit: 10,
+                maxRotation: 0,
+                minRotation: 0,
+              },
+            },
             y: { display: false },
           },
-          layout: { padding: { top: 40, bottom: 20 } },
+          layout: { padding: { top: 55, bottom: 20 } },
         },
       };
     },
@@ -686,7 +754,7 @@ function openModal(
             },
           ],
         },
-        options: lineOpts(""),
+        options: tradeValueLabelOpts(dataArr),
       };
     },
     impor: () => {
@@ -781,7 +849,7 @@ function openModal(
             },
           ],
         },
-        options: lineOpts(""),
+        options: tradeValueLabelOpts(dataArr),
       };
     },
   };
@@ -876,3 +944,26 @@ function lineOpts(suffix) {
     layout: { padding: { top: isMobile() ? 24 : 40, bottom: 10, right: isMobile() ? 10 : 40, left: isMobile() ? 6 : 30 } },
   };
 }
+
+function tradeValueLabelOpts(values, suffix = "") {
+  const base = lineOpts(suffix);
+  const validValues = values
+    .map((value, index) => ({ value, index }))
+    .filter((point) => Number.isFinite(point.value));
+  const minIndex = validValues.reduce((best, point) => point.value < best.value ? point : best).index;
+  const maxIndex = validValues.reduce((best, point) => point.value > best.value ? point : best).index;
+  const latestIndex = validValues.length ? validValues[validValues.length - 1].index : -1;
+  const alwaysShow = new Set([minIndex, maxIndex, latestIndex]);
+
+  return {
+    ...base,
+    plugins: {
+      ...base.plugins,
+      datalabels: {
+        ...base.plugins.datalabels,
+        display: (context) => alwaysShow.has(context.dataIndex) || context.active,
+      },
+    },
+  };
+}
+

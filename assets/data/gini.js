@@ -8,7 +8,8 @@ const dataGini = {
         2022,
         2023,
         2024,
-        2025
+        2025,
+        2026
     ],
     "wilayah": {
         "kepulauan_riau": {
@@ -19,7 +20,8 @@ const dataGini = {
                 0.325,
                 0.340,
                 0.357,
-                0.385
+                0.385,
+                0.354
             ]
         },
         "karimun": {

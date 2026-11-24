@@ -15,7 +15,7 @@ const indicatorInfo = {
     def: "Persentase jumlah pengangguran terhadap jumlah angkatan kerja",
     img: "assets/img/TPT.jpg",
     insight: (rn) =>
-      `TPT menunjukkan tren menurun dari 2022 hingga 2024, dan naik kembali pada 2025 di ${rn}.`,
+      `TPT Kabupaten Natuna terjaga stabil di kisaran 3,8%–4,1% dalam lima tahun terakhir (3,91% pada 2026), menandakan pasar kerja lokal yang relatif tangguh tanpa tekanan pengangguran berlebih.`,
   },
   pdrb: {
     def: "Nilai PDRB dibagi jumlah penduduk dalam suatu wilayah pada periode tertentu",
@@ -38,13 +38,13 @@ const indicatorInfo = {
     def: "Indikator yang mengukur kesetaraan capaian pembangunan manusia antara laki-laki dan perempuan.",
     img: "assets/img/IPG.jpeg",
     insight: (rn) =>
-      `IPG di ${rn} menunjukkan tren fluktatif dari tahun ke tahun.`,
+      `IPG di ${rn} menunjukkan stabilitas yang baik dari tahun ke tahun.`,
   },
   kemiskinan: {
     def: "Persentase penduduk yang memiliki pengeluaran per kapita sebulan kurang dari garis kemiskinan.",
     img: "assets/img/kemiskinan.jpg",
     insight: (rn) =>
-      `Angka kemiskinan di ${rn}  menunjukkan tren penurunan dari tahun 2023 hingga 2025.`,
+      `Angka kemiskinan Kabupaten Natuna pada 2026 turun ke titik terendahnya di 4,33%, melampaui level prapandemi 2020 (4,43%).`,
   },
   gini: {
     def: "Indikator yang menunjukkan tingkat ketimpangan pengeluaran secara menyeluruh",
@@ -339,7 +339,7 @@ function openModal(
       return {
         type: "line",
         data: {
-          labels: dataGini.tahun,
+          labels: dataGini.tahun.slice(0, dataArr.length),
           datasets: [
             {
               label: "Gini Ratio",
@@ -475,7 +475,7 @@ function openModal(
             },
           ],
         },
-        options: lineOpts("%"),
+        options: tradeValueLabelOpts(dataArr, "%"),
       };
     },
     wisman: () => {
@@ -855,5 +855,31 @@ function lineOpts(suffix) {
       },
     },
     layout: { padding: { top: isMobile() ? 24 : 40, bottom: 10, right: isMobile() ? 10 : 40, left: isMobile() ? 6 : 30 } },
+  };
+}
+
+function tradeValueLabelOpts(values, suffix = "") {
+  const base = lineOpts(suffix);
+  const validValues = values
+    .map((value, index) => ({ value, index }))
+    .filter((point) => Number.isFinite(point.value));
+  const minIndex = validValues.length
+    ? validValues.reduce((best, point) => point.value < best.value ? point : best).index
+    : -1;
+  const maxIndex = validValues.length
+    ? validValues.reduce((best, point) => point.value > best.value ? point : best).index
+    : -1;
+  const latestIndex = validValues.length ? validValues[validValues.length - 1].index : -1;
+  const alwaysShow = new Set([minIndex, maxIndex, latestIndex]);
+
+  return {
+    ...base,
+    plugins: {
+      ...base.plugins,
+      datalabels: {
+        ...base.plugins.datalabels,
+        display: (context) => alwaysShow.has(context.dataIndex) || context.active,
+      },
+    },
   };
 }

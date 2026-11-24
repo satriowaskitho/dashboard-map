@@ -15,7 +15,7 @@ const indicatorInfo = {
     def: "Persentase jumlah pengangguran terhadap jumlah angkatan kerja",
     img: "assets/img/TPT.jpg",
     insight: (rn) =>
-      `TPT menunjukkan tren menurun dari 2020 hingga 2024 dan naik kembali pada 2025.`,
+      `Pada tahun 2026, Tingkat Pengangguran Terbuka (TPT) tercatat sebesar 6,23 persen, membaik dibandingkan tahun 2025 yang sempat naik ke angka 6,31 persen.`,
   },
   pdrb: {
     def: "Nilai PDRB dibagi jumlah penduduk dalam suatu wilayah pada periode tertentu",
@@ -39,13 +39,13 @@ const indicatorInfo = {
     def: "Indikator yang mengukur kesetaraan capaian pembangunan manusia antara laki-laki dan perempuan.",
     img: "assets/img/IPG.jpeg",
     insight: (rn) =>
-      `IPG di ${rn} menunjukkan tren meningkat dari tahun 2021 hingga 2024 yang menunjukkan kesetaraan capaian pembangunan antara laki-laki dan perempuan semakin membaik`,
+      `IPG di ${rn} menunjukkan tren meningkat dari tahun 2021 hingga 2025 yang menunjukkan kesetaraan capaian pembangunan antara laki-laki dan perempuan semakin membaik`,
   },
   kemiskinan: {
     def: "Persentase penduduk yang memiliki pengeluaran per kapita sebulan kurang dari garis kemiskinan.",
     img: "assets/img/kemiskinan.jpg",
     insight: (rn) =>
-      `Angka kemiskinan di ${rn} menunjukkan tren penurunan dari tahun 2023 hingga 2025.`,
+      `Angka kemiskinan di ${rn} menunjukkan tren penurunan dari tahun 2023 hingga 2026.`,
   },
   gini: {
     def: "Indikator yang menunjukkan tingkat ketimpangan pengeluaran secara menyeluruh",
@@ -55,7 +55,7 @@ const indicatorInfo = {
   inflasi: {
     def: "Persentase kenaikan harga barang dan jasa secara umum dan terus-menerus dalam periode tertentu.",
     img: "assets/img/inflasi.jpeg",
-    insight: (rn) => `Inflasi Februari 2026 di ${rn} sebesar 4,13%.`,
+    insight: (rn) => `Pada Oktober 2026, inflasi tahunan di Kabupaten Karimun tercatat sebesar 2,37%, melandai setelah sempat mencapai puncak tertingginya sebesar 4,13% pada Februari 2026.`,
   },
   penduduk: {
     def: "Total orang yang tinggal dan menetap di suatu wilayah pada waktu tertentu.",
@@ -67,7 +67,7 @@ const indicatorInfo = {
     def: "Jumlah kunjungan wisatawan asing ke suatu wilayah dalam periode tertentu.",
     img: "assets/img/wisata.jpeg",
     insight: (rn) =>
-      `Kunjungan wisman di ${rn} meningkat tajam di akhir tahun 2025.`,
+      `Kunjungan wisatawan mancanegara (wisman) ke Kabupaten Karimun pada September 2026 tercatat sebanyak 4.323 kunjungan, mulai pulih dari titik terendahnya pada Juli 2026 (3.591 kunjungan)`,
   },
   ekspor: {
     def: "-",
@@ -343,7 +343,7 @@ function openModal(
       return {
         type: "line",
         data: {
-          labels: dataGini.tahun,
+          labels: dataGini.tahun.slice(0, dataArr.length),
           datasets: [
             {
               label: "Gini Ratio",
@@ -479,7 +479,7 @@ function openModal(
             },
           ],
         },
-        options: lineOpts("%"),
+        options: tradeValueLabelOpts(dataArr, "%"),
       };
     },
     wisman: () => {
@@ -560,11 +560,22 @@ function openModal(
           plugins: {
             legend: { display: true, position: "bottom" },
             datalabels: {
-              display: true,
+              display: (context) => {
+                if (context.datasetIndex !== 0) return false;
+                const values = context.chart.data.datasets[0].data;
+                const validValues = values
+                  .map((value, index) => ({ value, index }))
+                  .filter((point) => Number.isFinite(point.value));
+                if (!validValues.length) return false;
+                const minIndex = validValues.reduce((best, point) => point.value < best.value ? point : best).index;
+                const maxIndex = validValues.reduce((best, point) => point.value > best.value ? point : best).index;
+                const latestIndex = validValues[validValues.length - 1].index;
+                return context.active || [minIndex, maxIndex, latestIndex].includes(context.dataIndex);
+              },
               clip: false,
               align: "top",
               anchor: "end",
-              offset: 2,
+              offset: 4,
               formatter: (v) =>
                 v === 0 || v === null ? "" : v.toLocaleString("id-ID"),
               color: "#1e293b",
@@ -859,5 +870,31 @@ function lineOpts(suffix) {
       },
     },
     layout: { padding: { top: isMobile() ? 24 : 40, bottom: 10, right: isMobile() ? 10 : 40, left: isMobile() ? 6 : 30 } },
+  };
+}
+
+function tradeValueLabelOpts(values, suffix = "") {
+  const base = lineOpts(suffix);
+  const validValues = values
+    .map((value, index) => ({ value, index }))
+    .filter((point) => Number.isFinite(point.value));
+  const minIndex = validValues.length
+    ? validValues.reduce((best, point) => point.value < best.value ? point : best).index
+    : -1;
+  const maxIndex = validValues.length
+    ? validValues.reduce((best, point) => point.value > best.value ? point : best).index
+    : -1;
+  const latestIndex = validValues.length ? validValues[validValues.length - 1].index : -1;
+  const alwaysShow = new Set([minIndex, maxIndex, latestIndex]);
+
+  return {
+    ...base,
+    plugins: {
+      ...base.plugins,
+      datalabels: {
+        ...base.plugins.datalabels,
+        display: (context) => alwaysShow.has(context.dataIndex) || context.active,
+      },
+    },
   };
 }
