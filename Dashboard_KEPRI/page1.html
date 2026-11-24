@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+<style>
+        /* CAROUSEL SECTION */
+    /* ============================= */
+/* CONTAINER 2 KOLOM */
+/* ============================= */
+/* ============================= */
+/* CONTAINER FULL SCREEN */
+/* ============================= */
+    :root {
+    --primary: #e37f2a;
+    --primary-dark: #c96d21;
+    --primary-soft: #fff3ea;
+    --accent: #13273F;
+    --text-main: #2b2b2b;
+    --text-muted: #6b7280;
+    --bg-light: #f9fafb;
+    }
+
+    body {
+    font-family: 'Inter', sans-serif;
+    background: #ffffff;
+    color: var(--text-main);
+    }
+    .indikator-dua-kolom {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* 50% : 50% */
+        width: 100%;
+        min-height: 100vh; /* 1 layar penuh */
+    }
+
+
+    /* ============================= */
+    /* PANEL */
+    /* ============================= */
+    .panel-indikator {
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* konten di tengah vertikal */
+    }
+
+
+    /* Warna beda kiri kanan (optional biar kelihatan split) */
+    .panel-indikator:first-child {
+        background: #ffffff;
+    }
+
+    .panel-indikator:last-child {
+        background: #f5f7fb;
+    }
+
+
+    /* ============================= */
+    /* BODY (image + chart dalam panel) */
+    /* ============================= */
+    .panel-body {
+        display: grid;
+        grid-template-columns: 40% 60%;
+        gap: 20px;
+        align-items: center;
+    }
+
+
+    /* ============================= */
+    /* IMAGE */
+    /* ============================= */
+    .panel-image img {
+        width: 100%;
+        border-radius: 12px;
+    }
+
+
+    /* ============================= */
+    /* RESPONSIVE */
+    /* ============================= */
+    @media (max-width: 900px) {
+        .indikator-dua-kolom {
+            grid-template-columns: 1fr; /* jadi 1 kolom di HP */
+        }
+
+        .panel-body {
+            grid-template-columns: 1fr;
+        }
+    }
+    .hero-carousel {
+        position: relative;
+        width: 100%;
+        max-width: 700px;
+    }
+
+    /* slide */
+    .hero-slide {
+        position: relative;
+        display: none;
+    }
+
+    .hero-slide.active {
+        display: block;
+    }
+
+    /* image */
+    .hero-img {
+        width: 100%;
+        height: 420px;
+        object-fit: cover;
+        border-radius: 24px;
+    }
+
+    /* overlay */
+    .hero-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        padding: 24px;
+
+        border-radius: 0 0 24px 24px;
+
+        background: linear-gradient(
+            to top,
+            rgba(0,0,0,0.7),
+            rgba(0,0,0,0.0)
+        );
+
+        color: white;
+    }
+
+    .hero-overlay h2 {
+        font-size: 28px;
+        margin-bottom: 8px;
+    }
+
+    .hero-overlay p {
+        font-size: 16px;
+    }
+
+    /* button */
+    .hero-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0,0,0,0.4);
+        color: white;
+        border: none;
+        font-size: 22px;
+        padding: 10px 16px;
+        cursor: pointer;
+        border-radius: 8px;
+    }
+
+    .hero-btn.prev {
+        left: 15px;
+    }
+
+    .hero-btn.next {
+        right: 15px;
+    }
+
+    .hero-dots {
+    text-align: center;
+    margin-top: 12px;
+    }
+
+    .hero-dot {
+        height: 10px;
+        width: 10px;
+        margin: 6px;
+        background-color: #ccc;
+        border-radius: 50%;
+        display: inline-block;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .hero-dot.active {
+        background-color: #e67e22;
+        transform: scale(1.3);
+    }
+    .carousel-container {
+        width: 100%;
+        max-width: 1100px;
+        margin: 60px auto;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .carousel-track {
+        display: flex;
+        transition: transform 0.6s ease;
+    }
+
+    .carousel-slide {
+        min-width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        gap: 40px;
+        align-items: center;
+    }
+
+    .carousel-slide img {
+        width: 50%;
+        border-radius: 12px;
+    }
+
+    .carousel-text {
+        width: 50%;
+    }
+
+    .carousel-text h3 {
+        font-size: 28px;
+        margin-bottom: 12px;
+    }
+
+    .carousel-text p {
+        font-size: 16px;
+        color: #555;
+    }
+
+    /* buttons */
+    .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #13273F;
+        color: white;
+        border: none;
+        font-size: 24px;
+        padding: 10px 16px;
+        cursor: pointer;
+        border-radius: 8px;
+    }
+
+    .carousel-btn.prev {
+        left: 10px;
+    }
+
+    .carousel-btn.next {
+        right: 10px;
+    }
+
+    /* dots */
+    .carousel-dots {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .dot {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        background: #ccc;
+        margin: 5px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .dot.active {
+        background: #e37f2a;
+    }
+
+    .indikator-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:25px;
+    white-space: normal;
+    max-width:1100px;   /* batasi lebar seperti BPS */
+    width:100%;
+    margin:0 auto;
+    }
+
+    .indikator-wrapper {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+
+        width: 100%;
+        padding: 20px 20px;   /* beri jarak dari tepi layar */
+        box-sizing: border-box;
+    }
+
+    .indikator-card {
+        background: #ffffff;
+        border-radius: 18px;
+        padding: 24px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+        border-top: 6px solid var(--primary);
+    }
+
+    .indikator-top {
+        display: grid;
+        grid-template-columns: 140px 1fr;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .indikator-top img {
+        width: 140px;
+        height: 140px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .indikator-chart canvas {
+        height: 260px !important;
+    }
+
+    .indikator-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+    }
+
+
+    /* JUDUL */
+    .indikator-card h3 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        color: var(--accent);
+    }
+
+    .indikator-card h3::after {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 3px;
+    background: var(--primary);
+    margin-top: 10px;
+    border-radius: 3px;
+    }
+    /* SECTION GAMBAR + PENJELASAN */
+    .indikator-top {
+        display: grid;
+        grid-template-columns: minmax(240px, 320px) 1fr;
+        gap: 24px;
+        align-items: center;
+    }
+
+    .indikator-top img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 12px;
+        margin-left: 5px;
+    }
+    .indikator-desc {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    /* container */
+    .indikator-info {
+        background: #f8fafc;
+        border-radius: 10px;
+        padding: 12px 14px;
+        border: 1px solid #e2e8f0;
+        transition: 0.2s;
+    }
+
+    .indikator-info:hover {
+        background: #f1f5f9;
+    }
+
+    /* header */
+    .indikator-info-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 4px;
+    }
+
+    .indikator-info-header span {
+        font-size: 13px;
+        font-weight: 600;
+        color: #0f172a;
+    }
+
+    /* icon */
+    .indikator-info-icon {
+        width: 22px;
+        height: 22px;
+        border-radius: 6px;
+        background: #2563eb;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* text */
+    .indikator-info-text {
+        font-size: 13px;
+        line-height: 1.6;
+        color: #475569;
+    }
+
+    /* GRAFIK */
+    .indikator-chart {
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }
+
+    .indikator-insight {
+        background: var(--primary-soft);
+        padding: 20px 25px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 200px;
+        line-height: 1.7;
+        border-left: 4px solid var(--primary);
+    }
+
+    .indikator-card {
+    background: white;
+    padding: 5px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    transition: 0.2s;
+    }
+
+    .indikator-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    }
+
+    .indikator-icon {
+        width: 80px;
+        height: 80px;
+        margin: auto;
+        margin-top: 10px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+    }
+
+    .indikator-title {
+    font-weight: 600;
+    margin-top: 10px;
+    color: #000000;
+    }
+
+    .indikator-value {
+        font-size: 40px;
+        font-weight: bold;
+        margin: 0;
+        line-height: 1.1;
+        color: #e37f2a;
+    }
+
+    .indikator-value span {
+        font-size: 20px;
+        font-weight: normal;
+        display: block;
+        margin-top: -4px;
+    }
+
+    .indikator-date {
+        font-size: 15px;
+        font-weight: bold;
+        color: #5c5b5b;
+        margin-top: 10px;
+    }
+
+    .style-0 {
+        cursor: auto;
+        margin: 0px;
+        font-family: Inter, sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        color: rgb(33, 37, 41);
+        text-align: start;
+        background-color: rgb(255, 255, 255);
+        text-size-adjust: 100%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        box-sizing: border-box;
+    }
+
+    .style-1 {
+        display: block;
+        box-sizing: border-box;
+        width: 45vw;
+        height: 945px;
+        background-color: rgb(253, 243, 234);
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: -1;
+    }
+
+    .style-2 {
+        padding-top: 24px;
+        padding-bottom: 24px;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        --bs-navbar-padding-x: 0;
+        --bs-navbar-padding-y: 0.5rem;
+        --bs-navbar-color: rgba(0, 0, 0, 0.65);
+        --bs-navbar-hover-color: rgba(0, 0, 0, 0.8);
+        --bs-navbar-disabled-color: rgba(0, 0, 0, 0.3);
+        --bs-navbar-active-color: rgba(0, 0, 0, 1);
+        --bs-navbar-brand-padding-y: 0.3125rem;
+        --bs-navbar-brand-margin-end: 1rem;
+        --bs-navbar-brand-font-size: 1.25rem;
+        --bs-navbar-brand-color: rgba(0, 0, 0, 1);
+        --bs-navbar-brand-hover-color: rgba(0, 0, 0, 1);
+        --bs-navbar-nav-link-padding-x: 0.5rem;
+        --bs-navbar-toggler-padding-y: 0.25rem;
+        --bs-navbar-toggler-padding-x: 0.75rem;
+        --bs-navbar-toggler-font-size: 1.25rem;
+        --bs-navbar-toggler-icon-bg: url('data:image/svg+xml,%3csvg xmlns=' http: //www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2833, 37, 41, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e');--bs-navbar-toggler-border-color: rgba(0, 0, 0, 0.15);--bs-navbar-toggler-border-radius: 0.375rem;--bs-navbar-toggler-focus-width: 0.25rem;--bs-navbar-toggler-transition: box-shadow 0.15s ease-in-out;position:relative;display:flex;align-items:center;box-sizing:border-box;
+        }
+
+        .style-3 {
+            max-width:1320px; display:flex; flex-wrap:nowrap; align-items:center; justify-content:space-between; --bs-gutter-x: 1.5rem; --bs-gutter-y: 0; width: 100%; padding-right:12px; padding-left:12px; margin-right: auto; margin-left: auto; box-sizing:border-box;
+        }
+
+        .style-4 {
+            display:block; padding-top:5px; padding-bottom:5px; margin-right:16px; font-size:20px; color:rgb(0, 0, 0); text-decoration:none; white-space:nowrap; box-sizing:border-box;
+        }
+
+        .style-5 {
+            display:inline-block; vertical-align:text-top; box-sizing:border-box;
+        }
+
+        .style-6 {
+            display:none; padding-top:5px; padding-bottom:5px; margin-right:16px; font-size:20px; color:rgb(0, 0, 0); text-decoration:none; white-space:nowrap; box-sizing:border-box;
+        }
+
+        .style-7 {
+            display:inline-block; vertical-align:text-top; box-sizing:border-box;
+        }
+
+        .style-8 {
+            display:none; border:0px none rgba(0, 0, 0, 0.65); padding:4px 12px; font-size:20px; line-height:20px; color:rgba(0, 0, 0, 0.65); background-color:rgba(0, 0, 0, 0); border-radius:6px; transition:box-shadow 0.15s ease-in-out; cursor:pointer; appearance:button; text-transform:none; margin:0px; font-family:Inter, sans-serif; box-sizing:border-box;
+        }
+
+        .style-9 {
+            display:inline-block; width: 1.5em; height:30px; vertical-align:middle; background-image:url('data:image/svg+xml,%3csvg xmlns=' http: //www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2833, 37, 41, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e');background-repeat:no-repeat;background-position:50% 50%;background-size:100%;box-sizing:border-box;
+            }
+
+            .style-10 {
+                display:flex; flex-basis: auto; flex-grow:1; align-items:center; box-sizing:border-box;
+            }
+
+            .style-11 {
+                padding-top:0px; padding-bottom:0px; margin-bottom:0px; flex-direction:row; gap:8px; margin-left: auto !important; --bs-nav-link-padding-x: 0; --bs-nav-link-padding-y: 0.5rem; --bs-nav-link-font-weight:; --bs-nav-link-color: rgba(0, 0, 0, 0.65); --bs-nav-link-hover-color: rgba(0, 0, 0, 0.8); --bs-nav-link-disabled-color: rgba(0, 0, 0, 0.3); display:flex; padding-left:0px; list-style:outside none none; margin-top:0px; box-sizing:border-box;
+            }
+
+            .style-12 {
+                box-sizing:border-box;
+            }
+
+            .style-13 {
+                border-radius:800px; padding-top:8px; padding-bottom:8px; padding-right:16px; padding-left:16px; width: 100% !important; --bs-btn-color: #000; --bs-btn-bg: #f8f9fa; --bs-btn-border-color: #f8f9fa; --bs-btn-hover-color: #000; --bs-btn-hover-bg: rgb(210.8, 211.65, 212.5); --bs-btn-hover-border-color: rgb(198.4, 199.2, 200); --bs-btn-focus-shadow-rgb: 211, 212, 213; --bs-btn-active-color: #000; --bs-btn-active-bg: rgb(198.4, 199.2, 200); --bs-btn-active-border-color: rgb(186, 186.75, 187.5); --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125); --bs-btn-disabled-color: #000; --bs-btn-disabled-bg: #f8f9fa; --bs-btn-disabled-border-color: #f8f9fa; --bs-btn-padding-x: 0.75rem; --bs-btn-padding-y: 0.375rem; --bs-btn-font-family:; --bs-btn-font-size: 1rem; --bs-btn-font-weight: 400; --bs-btn-line-height: 1.5; --bs-btn-border-width: 1px; --bs-btn-border-radius: 0.375rem; --bs-btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075); --bs-btn-disabled-opacity: 0.65; --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(211, 212, 213, .5); display:inline-block; padding:8px 16px; font-family:Inter, sans-serif; font-size:16px; font-weight:400; line-height:24px; color:rgb(0, 0, 0); text-align:center; text-decoration:none; vertical-align:middle; cursor:pointer; user-select:none; background-color:rgb(248, 249, 250); transition:color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; appearance:button; text-transform:none; margin:0px; box-sizing:border-box;
+            }
+
+            .style-14 {
+                box-sizing:border-box;
+            }
+
+            .style-15 {
+                border-radius:800px; padding-top:8px; padding-bottom:8px; padding-right:16px; padding-left:16px; width: 100% !important; --bs-btn-color: #000; --bs-btn-bg: #f8f9fa; --bs-btn-border-color: #f8f9fa; --bs-btn-hover-color: #000; --bs-btn-hover-bg: rgb(210.8, 211.65, 212.5); --bs-btn-hover-border-color: rgb(198.4, 199.2, 200); --bs-btn-focus-shadow-rgb: 211, 212, 213; --bs-btn-active-color: #000; --bs-btn-active-bg: rgb(198.4, 199.2, 200); --bs-btn-active-border-color: rgb(186, 186.75, 187.5); --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125); --bs-btn-disabled-color: #000; --bs-btn-disabled-bg: #f8f9fa; --bs-btn-disabled-border-color: #f8f9fa; --bs-btn-padding-x: 0.75rem; --bs-btn-padding-y: 0.375rem; --bs-btn-font-family:; --bs-btn-font-size: 1rem; --bs-btn-font-weight: 400; --bs-btn-line-height: 1.5; --bs-btn-border-width: 1px; --bs-btn-border-radius: 0.375rem; --bs-btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075); --bs-btn-disabled-opacity: 0.65; --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(211, 212, 213, .5); display:inline-block; padding:8px 16px; font-family:Inter, sans-serif; font-size:16px; font-weight:400; line-height:24px; color:rgb(0, 0, 0); text-align:center; text-decoration:none; vertical-align:middle; cursor:pointer; user-select:none; background-color:rgb(248, 249, 250); transition:color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; box-sizing:border-box;
+            }
+
+            .style-16 {
+                max-width:1320px; --bs-gutter-x: 1.5rem; --bs-gutter-y: 0; width: 100%; padding-right:12px; padding-left:12px; margin-right: auto; margin-left: auto; box-sizing:border-box;
+            }
+
+            .style-17 {
+                margin-top:24px; --bs-gutter-x: 1.5rem; --bs-gutter-y: 0; display:flex; flex-wrap:wrap; margin-right:-12px; margin-left:-12px; box-sizing:border-box;
+            }
+
+            .style-18 {
+                display:block; flex: 0 0 auto; width: 50%; flex-shrink:0; max-width:100%; padding-right:12px; padding-left:12px; margin-top:0px; box-sizing:border-box;
+            }
+
+            .style-19 {
+                max-width:100%; height: auto; vertical-align:middle; box-sizing:border-box; border-radius: 30px;
+            }
+
+            .style-20 {
+                flex: 0 0 auto; width: 50%; flex-shrink:0; max-width:100%; padding-right:12px; padding-left:12px; margin-top:0px; box-sizing:border-box;
+            }
+
+            .style-21 {
+                align-items:center; justify-content:center; height:614.375px; display:flex; box-sizing:border-box;
+            }
+
+            .style-22 {
+                padding-bottom:48px; width: 100% !important; box-sizing:border-box;
+            }
+
+            .style-23 {
+                --bs-text-opacity: 1; color:rgb(4, 38, 68); margin-bottom:4px; font-size:36px; margin-top:20px; font-weight:500; line-height:24px; box-sizing:border-box;
+            }
+
+            .style-24 {
+                font-size:35px; font-weight:700; margin-bottom:8px; margin-top:100px; line-height:48px; color:rgb(4, 38, 68); box-sizing:border-box; 
+            }
+
+            .style-25 {
+                --bs-text-opacity: 1; color:#13273F; box-sizing:border-box;
+            }
+
+            .style-26 {
+                box-sizing:border-box; --bsb-tl-color: rgb(249.4, 229.4, 212.4); --bsb-tl-circle-color: #13273F; --bsb-tl-circle-size: 18px; --bsb-tl-circle-offset: 9px;
+            }
+
+            .style-27 {
+                max-width:1320px; --bs-gutter-x: 1.5rem; --bs-gutter-y: 0; width: 100%; padding-right:12px; padding-left:12px; margin-right: auto; margin-left: auto; box-sizing:border-box;
+            }
+
+            .style-28 {
+                justify-content:center; --bs-gutter-x: 1.5rem; --bs-gutter-y: 0; display:flex; flex-wrap:wrap; margin-top:0px; margin-right:-12px; margin-left:-12px; box-sizing:border-box;
+            }
+
+            .style-29 {
+                flex: 0 0 auto; width: 100%; flex-shrink:0; max-width:100%; padding-right:12px; padding-left:12px; margin-top:0px; box-sizing:border-box;
+            }
+
+            .style-30 {
+                margin-top:0px; margin-bottom:0px; padding-left:0px; box-sizing:border-box; list-style:outside none none; padding:0px; position:relative;
+            }
+
+            .style-31 {
+                --bs-text-opacity: 1; color:rgb(108, 117, 125); margin-left:24px; margin-top:16px; margin-bottom:16px; box-sizing:border-box;
+            }
+
+            .style-32 {
+                box-sizing:border-box; margin:0px; padding:0px; position:relative;
+            }
+
+            .style-33 {
+                box-sizing:border-box; margin:0px; padding:0px; position:relative;
+            }
+
+            .style-34 {
+                box-sizing:border-box;
+            }
+
+            .style-35 {
+                border-radius:16px; margin-left:24px; margin-bottom:16px; box-shadow:rgba(0, 0, 0, 0.075) 0px 2px 4px 0px; --bs-card-spacer-y: 1rem; --bs-card-spacer-x: 1rem; --bs-card-title-spacer-y: 0.5rem; --bs-card-title-color:; --bs-card-subtitle-color:; --bs-card-border-width: 1px; --bs-card-border-color: rgba(0, 0, 0, 0.175); --bs-card-border-radius: 0.375rem; --bs-card-box-shadow:; --bs-card-inner-border-radius: calc(0.375rem - (1px)); --bs-card-cap-padding-y: 0.5rem; --bs-card-cap-padding-x: 1rem; --bs-card-cap-bg: rgba(33, 37, 41, 0.03); --bs-card-cap-color:; --bs-card-height:; --bs-card-color:; --bs-card-bg: #fff; --bs-card-img-overlay-padding: 1rem; --bs-card-group-margin: 0.75rem; position:relative; display:flex; flex-direction:column; min-width:0px; height:137.188px; color:rgb(33, 37, 41); overflow-wrap:break-word; background-color:rgb(255, 255, 255); -webkit-background-clip:border-box; box-sizing:border-box; -webkit-background-clip:border-box;
+            }
+
+            .style-36 {
+                align-items:center; justify-content:center; display:flex; --bs-gutter-y: 0; --bs-gutter-x: 0; flex-wrap:wrap; margin-top:0px; margin-right:0px; margin-left:0px; box-sizing:border-box;
+            }
+
+            .style-37 {
+                display:block; flex: 0 0 auto; width: 16.6667%; flex-shrink:0; max-width:100%; padding-right:0px; padding-left:0px; margin-top:0px; box-sizing:border-box;
+            }
+
+            .style-38 {
+                border-bottom-left-radius:6px; border-top-left-radius:6px; max-width:100%; height: auto; vertical-align:middle; box-sizing:border-box;
+            }
+
+            .style-39 {
+                flex: 0 0 auto; width: 83.3333%; flex-shrink:0; max-width:100%; padding-right:0px; padding-left:0px; margin-top:0px; box-sizing:border-box;
+            }
+
+            .style-40 {
+                flex: 1 1 auto; padding:16px; color:rgb(33, 37, 41); box-sizing:border-box;
+            }
+
+            .style-41 {
+                --bs-text-opacity: 1; color:rgb(227, 127, 42); margin-bottom:8px; font-size:20px; margin-top:0px; font-weight:500; line-height:24px; box-sizing:border-box;
+            }
+
+            .style-42 {
+                font-weight:700; box-sizing:border-box;
+            }
+
+            .style-43 {
+                color: rgba(33, 37, 41, 0.75);
+                margin-bottom: 8px;
+                margin-top: 20px;
+                font-size: 18px;
+                font-weight: 500;
+
+                text-align: justify;
+                line-height: 32px; /* perbesar dari 19.2px */
+            }
+
+            .style-44 {
+                --bs-text-opacity: 1; color:rgb(108, 117, 125); margin-bottom:0px; margin-top:0px; box-sizing:border-box;
+            }
+
+            .style-45 {
+                box-sizing:border-box; margin:0px; padding:0px; position:relative;
+            }
+
+            .style-46 {
+                box-sizing:border-box; margin:0px; padding:0px; position:relative;
+            }
+
+            .style-47 {
+                box-sizing:border-box;
+            }
+
+            .style-48 {
+                border-radius:16px; margin-left:24px; margin-bottom:16px; box-shadow:rgba(0, 0, 0, 0.075) 0px 2px 4px 0px; --bs-card-spacer-y: 1rem; --bs-card-spacer-x: 1rem; --bs-card-title-spacer-y: 0.5rem; --bs-card-title-color:; --bs-card-subtitle-color:; --bs-card-border-width: 1px; --bs-card-border-color: rgba(0, 0, 0, 0.175); --bs-card-border-radius: 0.375rem; --bs-card-box-shadow:; --bs-card-inner-border-radius: calc(0.375rem - (1px)); --bs-card-cap-padding-y: 0.5rem; --bs-card-cap-padding-x: 1rem; --bs-card-cap-bg: rgba(33, 37, 41, 0.03); --bs-card-cap-color:; --bs-card-height:; --bs-card-color:; --bs-card-bg: #fff; --bs-card-img-overlay-padding: 1rem; --bs-card-group-margin: 0.75rem; position:relative; display:flex; flex-direction:column; min-width:0px; height:161.188px; color:rgb(33, 37, 41); overflow-wrap:break-word; background-color:rgb(255, 255, 255); -webkit-background-clip:border-box; box-sizing:border-box; -webkit-background-clip:border-box;
+            }
+
+            .style-49 {
+                align-items:center; justify-content:center; display:flex; --bs-gutter-y: 0; --bs-gutter-x: 0; flex-wrap:wrap; margin-top:0px; margin-right:0px; margin-left:0px; box-sizing:border-box;
+            }
+
+            .style-50 {
+                display:block; flex: 0 0 auto; width: 16.6667%; flex-shrink:0; max-width:100%; padding-right:0px; padding-left:0px; margin-top:0px; box-sizing:border-box;
+            }
+
+            .style-51 {
+                border-bottom-left-radius:6px; border-top-left-radius:6px; max-width:100%; height: auto; vertical-align:middle; box-sizing:border-box;
+            }
+
+            .style-52 {
+                flex: 0 0 auto; width: 83.3333%; flex-shrink:0; max-width:100%; padding-right:0px; padding-left:0px; margin-top:0px; box-sizing:border-box;
+            }
+
+            .style-53 {
+                flex: 1 1 auto; padding:16px; color:rgb(33, 37, 41); box-sizing:border-box;
+            }
+
+            .style-54 {
+                --bs-text-opacity: 1; color:rgb(227, 127, 42); margin-bottom:8px; font-size:20px; margin-top:0px; font-weight:500; line-height:24px; box-sizing:border-box;
+            }
+
+            .style-55 {
+                font-weight:700; box-sizing:border-box;
+            }
+
+            .style-56 {
+                --bs-text-opacity: 1; color:rgba(33, 37, 41, 0.75); margin-bottom:8px; margin-top:-4px; font-size:16px; font-weight:500; line-height:19.2px; box-sizing:border-box;
+            }
+
+            .style-57 {
+                --bs-text-opacity: 1; color:rgb(108, 117, 125); margin-bottom:0px; margin-top:0px; box-sizing:border-box;
+            }
+
+            .style-58 {
+                padding-bottom:48px; box-sizing:border-box;
+            }
+
+            .style-59 {
+                display: block;
+                width: 200px;
+                height: auto;
+                margin-top: 30px;
+                margin-left: auto;
+            }
+
+            .style-60 {
+                padding-top:25px; padding-bottom:25px; margin-top:-48px; box-sizing:border-box; background-color:rgb(227, 127, 42); background-image:url('https://sensus.bps.go.id/img/wave.png'); background-size:cover; background-position:50% 50%; background-repeat:no-repeat; width: 100%; min-height:300px;
+            }
+
+            .style-61 {
+                max-width:1320px; --bs-gutter-x: 1.5rem; --bs-gutter-y: 0; width: 100%; padding-right:12px; padding-left:12px; margin-right: auto; margin-left: auto; box-sizing:border-box;
+            }
+
+            .style-62 {
+                text-align:center; align-items:center; justify-content:center; flex-direction:column; display:flex; box-sizing:border-box;
+            }
+
+            .style-63 {
+                font-size:32px; --bs-text-opacity: 1; color:rgb(255, 255, 255); font-weight:700; padding-top:16px; margin-top:0px; margin-bottom:8px; line-height:38.4px; box-sizing:border-box;
+            }
+
+            .style-64 {
+                display:block; flex: 0 0 auto; width: 58.3333%; --bs-text-opacity: 1; color:rgb(255, 255, 255); font-size:20px; font-weight:300; margin-top:0px; margin-bottom:16px; box-sizing:border-box;
+            }
+
+            .style-65 {
+                box-sizing:border-box;
+            }
+
+            .style-66 {
+                font-weight:700; box-sizing:border-box;
+            }
+
+            .style-67 {
+                display:none; flex: 0 0 auto; width: 58.3333%; --bs-text-opacity: 1; color:rgb(255, 255, 255); margin-top:0px; margin-bottom:16px; box-sizing:border-box;
+            }
+
+            .style-68 {
+                font-weight:700; box-sizing:border-box;
+            }
+
+            .style-69 {
+                padding-bottom:48px;
+                box-sizing:border-box;
+                overflow:hidden;
+                white-space:nowrap;
+                background:rgb(227, 127, 42);
+                position:relative;
+                display:flex;
+                width:100%;
+
+                justify-content:center;   /* ⭐ INI YANG PALING PENTING */
+            }
+
+            .style-70 {
+                box-sizing:border-box; z-index:3; left:0px; background:rgba(0, 0, 0, 0) linear-gradient(to right, rgb(227, 127, 42), rgba(0, 0, 0, 0)) repeat scroll 0% 0% / auto padding-box border-box; position:absolute; top:0px; width: 4rem; height:152.469px; pointer-events:none;
+            }
+
+            .style-71 {
+                box-sizing:border-box; z-index:3; right:0px; background:rgba(0, 0, 0, 0) linear-gradient(to left, rgb(227, 127, 42), rgba(0, 0, 0, 0)) repeat scroll 0% 0% / auto padding-box border-box; position:absolute; top:0px; width: 4rem; height:152.469px; pointer-events:none;
+            }
+
+            .style-72 {
+                transform: translateX(-468.16px); box-sizing:border-box; display:flex; width: max-content;
+            }
+
+            .style-73 {
+                box-sizing:border-box; display:flex;
+            }
+
+            .style-74 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-75 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-76 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-77 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-78 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-79 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-80 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-81 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-82 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-83 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-84 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-85 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-86 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-87 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-88 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-89 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-90 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-91 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-92 {
+                box-sizing:border-box; display:flex;
+            }
+
+            .style-93 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-94 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-95 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-96 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-97 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-98 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-99 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-100 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-101 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-102 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-103 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-104 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-105 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-106 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-107 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-108 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-109 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-110 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-111 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-112 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-113 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-114 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-115 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-116 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-117 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-118 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-119 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-120 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-121 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-122 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-123 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-124 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-125 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-126 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-127 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-128 {
+                padding-right:4px; padding-left:4px; vertical-align:middle; box-sizing:border-box; width: 200px; object-fit:contain;
+            }
+
+            .style-129 {
+                padding-right:48px; padding-left:48px; max-width:1320px; --bs-gutter-x: 1.5rem; --bs-gutter-y: 0; width: 100%; margin-right: auto; margin-left: auto; box-sizing:border-box;
+            }
+
+            .style-130 {
+                justify-content:center; --bs-gutter-x: 1.5rem; --bs-gutter-y: 0; display:flex; flex-wrap:wrap; margin-top:0px; margin-right:-12px; margin-left:-12px; box-sizing:border-box;
+            }
+
+            .style-131 {
+                flex: 0 0 auto; width: 83.3333%; flex-shrink:0; max-width:100%; padding-right:12px; padding-left:12px; margin-top:0px; box-sizing:border-box;
+            }
+
+            .style-132 {
+                border-radius: 16px;
+                padding: 24px;
+                box-shadow: rgba(0, 0, 0, 0.15) 0px 8px 16px 0px;
+
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;   /* center vertikal */
+                align-items: center;       /* center horizontal */
+                text-align: center;        /* center teks */
+
+                min-width: 0;
+                height: 164.797px;
+
+                color: rgb(33, 37, 41);
+                background-color: #fff;
+                box-sizing: border-box;
+            }
+
+            .style-133 {
+                text-align:center; align-items:center; justify-content:center; flex-direction:column; display:flex; box-sizing:border-box;
+            }
+
+            .style-134 {
+                font-size:32px; font-weight:700; padding-top:16px; margin-top:0px; margin-bottom:15px; line-height:28.8px; color:rgb(33, 37, 41); box-sizing:border-box;
+            }
+
+            .style-135 {
+                flex: 0 0 auto; width: 83.3333%; --bs-text-opacity: 1; color:rgb(108, 117, 125); margin-top:0px; margin-bottom:16px; box-sizing:border-box;
+            }
+
+            .style-136 {
+                padding-bottom:48px; max-width:1320px; --bs-gutter-x: 1.5rem; --bs-gutter-y: 0; width: 100%; padding-right:12px; padding-left:12px; margin-right: auto; margin-left: auto; box-sizing:border-box;
+            }
+
+            .style-137 {
+                max-width:1320px; padding-bottom:48px; --bs-gutter-x: 1.5rem; --bs-gutter-y: 0; width: 100%; padding-right:12px; padding-left:12px; margin-right: auto; margin-left: auto; box-sizing:border-box;
+            }
+
+            .style-138 {
+                --bs-gutter-x: 1.5rem; --bs-gutter-y: 0; display:flex; flex-wrap:wrap; margin-top:0px; margin-right:-12px; margin-left:-12px; box-sizing:border-box;
+            }
+
+            .style-139 {
+                flex: 0 0 auto; width: 50%; flex-shrink:0; max-width:100%; padding-right:12px; padding-left:12px; margin-top:0px; box-sizing:border-box;
+            }
+
+            .style-140 {
+                width: 100%;
+                height: auto;
+                padding: 0;
+                display: block;
+            }
+
+            .style-141 {
+                flex: 0 0 auto; width: 50%; flex-shrink:0; max-width:100%; padding-right:12px; padding-left:12px; margin-top:0px; box-sizing:border-box;
+            }
+
+            .style-142 {
+                align-items:center; justify-content:center; height:473.188px; display:flex; box-sizing:border-box;
+            }
+
+            .style-143 {
+                width: 100% !important; box-sizing:border-box;
+            }
+
+            .style-144 {
+                font-size:25px; font-weight:700; padding-bottom:16px; margin-top:100px; margin-bottom:8px; line-height:33.6px; color:rgb(33, 37, 41); box-sizing:border-box;
+            }
+
+            .style-145 {
+                padding-bottom:16px; display:flex; box-sizing:border-box;
+            }
+
+            .style-146 {
+                flex-shrink:0; box-sizing:border-box;
+            }
+
+            .style-147 {
+                border-radius:800px; box-shadow:rgba(0, 0, 0, 0.15) 0px 8px 16px 0px; vertical-align:middle; box-sizing:border-box; width: 52px; background-color: #E37F2A; object-fit: contain;
+            }
+
+            .style-148 {
+                margin-left:16px; flex-grow:1; box-sizing:border-box;
+            }
+
+            .style-149 {
+                font-weight:700; margin-bottom:0px; margin-top:0px; box-sizing:border-box;
+            }
+
+            .style-150 {
+                --bs-text-opacity: 1; color:rgb(108, 117, 125); margin-top:0px; margin-bottom:16px; box-sizing:border-box;
+            }
+
+
+
+            .style-285 {
+                margin-top:-16px; float:right; max-width:100%; height: auto; vertical-align:middle; box-sizing:border-box; max-height:300px;
+            }
+
+            .style-286 {
+                --bs-bg-opacity: 1; background-color:rgb(227, 127, 42); padding-top:48px; padding-bottom:48px; box-sizing:border-box;
+            }
+
+            .style-287 {
+                max-width:1320px; --bs-gutter-x: 1.5rem; --bs-gutter-y: 0; width: 100%; padding-right:12px; padding-left:12px; margin-right: auto; margin-left: auto; box-sizing:border-box;
+            }
+
+            .style-288 {
+                --bs-gutter-x: 1.5rem; --bs-gutter-y: 0; display:flex; flex-wrap:wrap; margin-top:0px; margin-right:-12px; margin-left:-12px; box-sizing:border-box;
+            }
+
+            .style-289 {
+                flex: 0 0 auto; width: 75%; flex-shrink:0; max-width:100%; padding-right:12px; padding-left:12px; margin-top:0px; box-sizing:border-box;
+            }
+
+            .style-290 {
+                --bs-text-opacity: 1; color:rgb(248, 249, 250); font-weight:700; font-size:20px; margin-top:0px; margin-bottom:8px; line-height:24px; box-sizing:border-box;
+            }
+
+            .style-291 {
+                --bs-text-opacity: 1; color:rgb(248, 249, 250); margin-top:0px; margin-bottom:16px; box-sizing:border-box;
+            }
+
+            .style-292 {
+                box-sizing:border-box;
+            }
+
+            .style-293 {
+                box-sizing:border-box;
+            }
+
+            .style-294 {
+                box-sizing:border-box;
+            }
+
+            .style-295 {
+                color: inherit; text-decoration: none; cursor: default; text-decoration:none; cursor:default; box-sizing:border-box;
+            }
+
+            .style-296 {
+                box-sizing:border-box;
+            }
+
+            .style-297 {
+                flex: 0 0 auto; width: 25%; flex-shrink:0; max-width:100%; padding-right:12px; padding-left:12px; margin-top:0px; box-sizing:border-box;
+            }
+
+            .style-298 {
+                --bs-text-opacity: 1; color:rgb(248, 249, 250); font-weight:700; font-size:20px; margin-top:0px; margin-bottom:8px; line-height:24px; box-sizing:border-box;
+            }
+
+            .style-299 {
+                padding-left:0px; list-style:outside none none; margin-top:0px; margin-bottom:16px; box-sizing:border-box;
+            }
+
+            .style-300 {
+                margin-bottom:8px; align-items:center; display:flex; box-sizing:border-box;
+            }
+
+            .style-301 {
+                --bs-text-opacity: 1; color:rgb(255, 255, 255); margin-bottom:4px; margin-right:8px; vertical-align:middle; box-sizing:border-box;
+            }
+
+            .style-302 {
+                box-sizing:border-box;
+            }
+
+            .style-303 {
+                --bs-text-opacity: 1; color:rgb(255, 255, 255); text-decoration:none; box-sizing:border-box;
+            }
+
+            .style-304 {
+                margin-bottom:8px; align-items:center; display:flex; box-sizing:border-box;
+            }
+
+            .style-305 {
+                --bs-text-opacity: 1; color:rgb(255, 255, 255); margin-bottom:4px; margin-right:8px; vertical-align:middle; box-sizing:border-box;
+            }
+
+            .style-306 {
+                box-sizing:border-box;
+            }
+
+            .style-307 {
+                --bs-text-opacity: 1; color:rgb(255, 255, 255); text-decoration:none; box-sizing:border-box;
+            }
+
+            .style-308 {
+                margin-bottom:8px; align-items:center; display:flex; box-sizing:border-box;
+            }
+
+            .style-309 {
+                --bs-text-opacity: 1; color:rgb(255, 255, 255); margin-bottom:4px; margin-right:8px; vertical-align:middle; box-sizing:border-box;
+            }
+
+            .style-310 {
+                box-sizing:border-box;
+            }
+
+            .style-311 {
+                --bs-text-opacity: 1; color:rgb(255, 255, 255); text-decoration:none; box-sizing:border-box;
+            }
+
+            .style-312 {
+                align-items:center; display:flex; box-sizing:border-box;
+            }
+
+            .style-313 {
+                --bs-text-opacity: 1; color:rgb(255, 255, 255); margin-bottom:4px; margin-right:8px; vertical-align:middle; box-sizing:border-box;
+            }
+
+            .style-314 {
+                box-sizing:border-box;
+            }
+
+            .style-315 {
+                --bs-text-opacity: 1; color:rgb(255, 255, 255); text-decoration:none; box-sizing:border-box;
+            }
+
+
+                                    @media (max-width: 1024px) {
+                                        .indikator-container {
+                                            grid-template-columns: repeat(2, 1fr);
+                                        }
+                                    }
+</style>
+
+<body class="style-0">
+    <div class="style-1"></div>
+    <nav class="style-2">
+        <div class="style-3">
+            <a class="style-4" href="#">
+                <img src="logo_bps.png" alt="Logo" height="48" class="style-5" /> </a> <a class="style-6" href="#">
+                <img src="assets/img/logo.png" alt="Logo" height="36" class="style-7" /> </a> <button class="style-8" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="style-9"></span> </button>
+            <div class="style-10">
+                <ul class="style-11">
+                    <li class="style-12">
+                        <button class="style-13" data-bs-toggle="modal" data-bs-target="#faqModal">
+                            Home
+                        </button>
+                    </li>
+                    <li class="style-14">
+                        <a class="style-15" href="https://sensus.bps.go.id">Another Page</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="style-16">
+        <div class="style-17">
+            <div class="style-18">
+                <img src="karimun.jpg" alt="hero image - petugas sensus" class="style-19" />
+            </div>
+
+            <div class="style-20">
+                <div class="style-21">
+                    <div class="style-22">
+                        <h2 class="style-24">Kabupaten Karimun</h2>
+                        <h6 class="style-43">Potensi pertambangan, pelabuhan, dan industri maritim.</h6>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="style-129">
+        <div class="style-130">
+            <div class="style-131">
+                <div class="style-132">
+                    <div class="style-133">
+                        <h4 class="style-134">Indikator Strategis</h4>
+                        <p class="style-135">Indikator strategis ini digunakan untuk memantau kinerja pembangunan Kabupaten Karimun
+meliputi pertumbuhan ekonomi, kemiskinan, ketenagakerjaan,
+dan kualitas pembangunan manusia sebagai dasar perencanaan dan evaluasi kebijakan daerah.</p>
+                        <!----><i class="bi bi-eye-fill"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="style-136"></div>
+    </div>
+    <div class="indikator-wrapper">
+
+    <!-- INDIKATOR 1 -->
+        <div class="indikator-card">
+
+            <!-- JUDUL -->
+            <h3>Angka Kemiskinan</h3>
+
+            <!-- GAMBAR + METODE -->
+            <div class="indikator-top">
+                <img src="kemiskinan.jpg" alt="Angka Kemiskinan">
+                <div class="indikator-desc">
+
+                    <div class="indikator-info">
+                        <div class="indikator-info-header">
+                            <div></div>
+                            <span>Definisi</span>
+                        </div>
+                        <div class="indikator-info-text">
+                            Kondisi dimana seseorang atau sekelompok orang tidak mampu memenuhi
+                            hak dasar untuk mempertahankan dan mengembangkan kehidupan yang bermartabat.
+                        </div>
+                    </div>
+
+                    <div class="indikator-info">
+                        <div class="indikator-info-header">
+                            <div></div>
+                            <span>Metode Perhitungan</span>
+                        </div>
+                        <div class="indikator-info-text">
+                            Menggunakan konsep garis kemiskinan berdasarkan pengeluaran minimum
+                            kebutuhan dasar makanan dan non-makanan.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- GRAFIK -->
+            <div class="indikator-chart">
+                <canvas id="chartKemiskinan"></canvas>
+            </div>
+
+            <!-- INTERPRETASI -->
+            <div class="indikator-insight">
+                <strong>Insight</strong><br>
+                Angka kemiskinan menunjukkan tren peningkatan pada periode 2020–2022, <br> kemudian turun secara konsisten hingga mencapai 4,44 persen pada tahun 2025.
+            </div>
+
+        </div>
+
+    <!-- INDIKATOR 2 -->
+        <div class="indikator-card">
+
+            <!-- JUDUL -->
+            <h3>Angka Kemiskinan</h3>
+
+            <!-- GAMBAR + METODE -->
+            <div class="indikator-top">
+                <img src="kemiskinan.jpg" alt="Angka Kemiskinan">
+                <div class="indikator-desc">
+
+                    <div class="indikator-info">
+                        <div class="indikator-info-header">
+                            <div></div>
+                            <span>Definisi</span>
+                        </div>
+                        <div class="indikator-info-text">
+                            Kondisi dimana seseorang atau sekelompok orang tidak mampu memenuhi
+                            hak dasar untuk mempertahankan dan mengembangkan kehidupan yang bermartabat.
+                        </div>
+                    </div>
+
+                    <div class="indikator-info">
+                        <div class="indikator-info-header">
+                            <div></div>
+                            <span>Metode Perhitungan</span>
+                        </div>
+                        <div class="indikator-info-text">
+                            Menggunakan konsep garis kemiskinan berdasarkan pengeluaran minimum
+                            kebutuhan dasar makanan dan non-makanan.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- GRAFIK -->
+            <div class="indikator-chart">
+                <canvas id="chartKemiskinan"></canvas>
+            </div>
+
+            <!-- INTERPRETASI -->
+            <div class="indikator-insight">
+                <strong>Insight</strong><br>
+                Angka kemiskinan menunjukkan tren peningkatan pada periode 2020–2022, <br> kemudian turun secara konsisten hingga mencapai 4,44 persen pada tahun 2025.
+            </div>
+
+        </div>
+
+    <!-- INDIKATOR 3 -->
+        <div class="indikator-card">
+
+            <!-- JUDUL -->
+            <h3>Angka Kemiskinan</h3>
+
+            <!-- GAMBAR + METODE -->
+            <div class="indikator-top">
+                <img src="kemiskinan.jpg" alt="Angka Kemiskinan">
+                <div class="indikator-desc">
+
+                    <div class="indikator-info">
+                        <div class="indikator-info-header">
+                            <div></div>
+                            <span>Definisi</span>
+                        </div>
+                        <div class="indikator-info-text">
+                            Kondisi dimana seseorang atau sekelompok orang tidak mampu memenuhi
+                            hak dasar untuk mempertahankan dan mengembangkan kehidupan yang bermartabat.
+                        </div>
+                    </div>
+
+                    <div class="indikator-info">
+                        <div class="indikator-info-header">
+                            <div></div>
+                            <span>Metode Perhitungan</span>
+                        </div>
+                        <div class="indikator-info-text">
+                            Menggunakan konsep garis kemiskinan berdasarkan pengeluaran minimum
+                            kebutuhan dasar makanan dan non-makanan.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- GRAFIK -->
+            <div class="indikator-chart">
+                <canvas id="chartKemiskinan"></canvas>
+            </div>
+
+            <!-- INTERPRETASI -->
+            <div class="indikator-insight">
+                <strong>Insight</strong><br>
+                Angka kemiskinan menunjukkan tren peningkatan pada periode 2020–2022, <br> kemudian turun secara konsisten hingga mencapai 4,44 persen pada tahun 2025.
+            </div>
+
+        </div>
+        <div class="indikator-card">
+
+            <!-- JUDUL -->
+            <h3>Angka Kemiskinan</h3>
+
+            <!-- GAMBAR + METODE -->
+            <div class="indikator-top">
+                <img src="kemiskinan.jpg" alt="Angka Kemiskinan">
+                <div class="indikator-desc">
+
+                    <div class="indikator-info">
+                        <div class="indikator-info-header">
+                            <div></div>
+                            <span>Definisi</span>
+                        </div>
+                        <div class="indikator-info-text">
+                            Kondisi dimana seseorang atau sekelompok orang tidak mampu memenuhi
+                            hak dasar untuk mempertahankan dan mengembangkan kehidupan yang bermartabat.
+                        </div>
+                    </div>
+
+                    <div class="indikator-info">
+                        <div class="indikator-info-header">
+                            <div></div>
+                            <span>Metode Perhitungan</span>
+                        </div>
+                        <div class="indikator-info-text">
+                            Menggunakan konsep garis kemiskinan berdasarkan pengeluaran minimum
+                            kebutuhan dasar makanan dan non-makanan.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- GRAFIK -->
+            <div class="indikator-chart">
+                <canvas id="chartKemiskinan"></canvas>
+            </div>
+
+            <!-- INTERPRETASI -->
+            <div class="indikator-insight">
+                <strong>Insight</strong><br>
+                Angka kemiskinan menunjukkan tren peningkatan pada periode 2020–2022, <br> kemudian turun secara konsisten hingga mencapai 4,44 persen pada tahun 2025.
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer class="style-286">
+        <div class="style-287">
+            <div class="style-288">
+                <div class="style-289">
+                    <h5 class="style-290">Badan Pusat Statistik Provinsi Kepulauan Riau</h5>
+                    <p class="style-291">
+                        Jl. Ahmad Yani No. 21 Tanjungpinang 29124<br class="style-292" />
+                        Telp. (0771) 4500155 / 4500150 (PST)<br class="style-293" />
+                        Fax. (0771) 4500157<br class="style-294" />
+                        Whatsapp <a href="https://wa.me/6281511262026" onmouseover="this.style.color='#25D366'; this.style.cursor='pointer'" onmouseout="this.style.color='inherit'; this.style.cursor='default'" class="style-295">0877-2000-2100</a><br class="style-296" />
+                        Mailbox : bps2100@bps.go.id
+                    </p>
+                </div>
+                <div class="style-297">
+                    <h5 class="style-298">Media Sosial</h5>
+                    <ul class="style-299">
+                        <li class="style-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="style-301" viewBox="0 0 16 16">
+                                <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334" class="style-302"></path>
+                            </svg> <a href="https://instagram.com/bpskepri" target="_blank" class="style-303">bpskepri</a>
+                        </li>
+                        <li class="style-308">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="style-309" viewBox="0 0 16 16">
+                                <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951" class="style-310"></path>
+                            </svg> <a href="https://www.facebook.com/bpskepri" target="_blank" class="style-311">BPS Provinsi Kepulauan Riau</a>
+                        </li>
+                        <li class="style-312">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="style-313" viewBox="0 0 16 16">
+                                <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z" class="style-314"></path>
+                            </svg> <a href="https://www.youtube.com/channel/UCLJy0XZipF0snyJdx4az2EA" target="_blank" class="style-315">BPS Provinsi Kepulauan Riau</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const ctx = document.getElementById('chartKemiskinan');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['2020', '2021', '2022', '2023', '2024', '2025'],
+            datasets: [{
+                data: [5.92,  6.12, 6.24, 5.69, 5.37, 4.44],
+
+                // warna berbeda untuk bar terakhir
+                backgroundColor: [
+                    '#2563eb',
+                    '#2563eb',
+                    '#2563eb',
+                    '#2563eb',
+                    '#2563eb',
+                    '#f59e0b' // warna berbeda (highlight tahun terbaru)
+                ],
+
+                borderRadius: 8,
+                categoryPercentage: 0.95,
+                barPercentage: 0.7
+            }]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            layout: {
+                padding: {
+                    left: 100,
+                    right: 100,
+                    top: 10
+                }
+            },
+
+            plugins: {
+
+                // JUDUL GRAFIK
+                title: {
+                    display: true,
+                    text: 'Perkembangan Angka Kemiskinan 2020–2025',
+                    align: 'start',
+                    color: '#1e293b',
+                    font: {
+                        size: 16,
+                        weight: '600'
+                    },
+                    padding: {
+                        bottom: 30
+                    }
+                },
+
+                legend: {
+                    display: false
+                },
+
+                datalabels: {
+                    anchor: 'end',
+                    align: 'top',
+
+                    formatter: (value) => value + '%',
+
+                    color: '#0f172a',
+
+                    font: {
+                        weight: 'bold',
+                        size: 16   // font lebih besar
+                    }
+                }
+            },
+
+            scales: {
+
+                y: {
+                    display: false,
+                    grid: { display: false },
+                    border: { display: false }
+                },
+
+                x: {
+                    grid: { display: false },
+                    border: { display: false },
+                    ticks: {
+                        color: '#475569',
+                        font: {
+                            size: 13,
+                            weight: '500'
+                        }
+                    }
+                }
+            }
+        },
+
+        plugins: [ChartDataLabels]
+
+    });
+
+});
+</script>
+<script>
+
+let heroIndex = 0;
+
+const heroSlides = document.querySelectorAll(".hero-slide");
+const heroDotsContainer = document.getElementById("heroDots");
+
+/* create dots */
+heroSlides.forEach((_, i) => {
+
+    const dot = document.createElement("span");
+
+    dot.classList.add("hero-dot");
+
+    dot.onclick = () => {
+
+        heroIndex = i;
+        showHeroSlide(heroIndex);
+
+    };
+
+    heroDotsContainer.appendChild(dot);
+
+});
+
+const heroDots = document.querySelectorAll(".hero-dot");
+
+function showHeroSlide(index){
+
+    heroSlides.forEach(slide =>
+        slide.classList.remove("active"));
+
+    heroDots.forEach(dot =>
+        dot.classList.remove("active"));
+
+    heroSlides[index].classList.add("active");
+
+    heroDots[index].classList.add("active");
+
+}
+
+function heroMove(step){
+
+    heroIndex += step;
+
+    if(heroIndex >= heroSlides.length)
+        heroIndex = 0;
+
+    if(heroIndex < 0)
+        heroIndex = heroSlides.length - 1;
+
+    showHeroSlide(heroIndex);
+
+}
+
+/* initialize */
+showHeroSlide(heroIndex);
+
+/* auto slide */
+setInterval(() => {
+
+    heroMove(1);
+
+},5000);
+
+
+
+</script>
+</body>
+</html>

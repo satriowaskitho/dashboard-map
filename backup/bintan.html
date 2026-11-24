@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — Kabupaten Bintan</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        /* Global Resets */
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow-x: hidden;
+        }
+        /* Ensure footer is true bottom */
+        .style-286 {
+            margin-bottom: 0 !important;
+        }
+        body.style-0 {
+            padding-bottom: 0 !important;
+            margin-bottom: 0 !important;
+        }
+        /* Kill ALL parent container padding that creates the footer gap */
+        .style-69, .style-60 {
+            padding-bottom: 0 !important;
+        }
+        /* Restore standard footer height/margin */
+        footer.style-286 {
+            margin-top: 0 !important;
+            padding-top: 48px !important;
+        }
+        /* IPG card content centering */
+        .eko-ipg-main {
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+        }
+        
+        /* Responsive Overrides */
+        /* --- Mobile & Tablet (up to 991px) --- */
+        @media (max-width: 991px) {
+            /* Adapt Card Shapes for Mobile (sharper, less padding to save space) */
+            .eko-paired-card, .eko-ipg-main, .eko-ipg-chart-box, .eko-card-square {
+                border-radius: 16px !important;
+                padding: 24px 20px !important;
+            }
+            .eko-card-square {
+                flex-direction: column !important;
+                text-align: center !important;
+                gap: 12px !important;
+            }
+            .eko-split {
+                padding: 32px 16px !important;
+            }
+
+            /* Fix Grid Layouts (Kemiskinan, PDRB, Inflasi) */
+            .eko-paired-grid {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+                padding: 0 20px !important; /* side margins for mobile */
+            }
+            .eko-ipg-grid {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+                padding: 0 20px !important; /* side margins for mobile */
+            }
+            .eko-ipg-container {
+                padding: 0 !important;
+            }
+            /* Explicit centering for IPG on mobile */
+            .eko-ipg-main {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
+                text-align: center !important;
+            }
+        
+        /* User-requested description margins */
+        .eko-description {
+            margin-top: 32px !important;
+            margin-bottom: 32px !important;
+            padding: 0 20px !important;
+        }
+            .eko-paired-description {
+                flex-direction: column !important;
+                gap: 16px !important;
+            }
+
+            /* Fix Header sizes for Sections */
+            .eko-paired-header h2 {
+                font-size: 28px !important;
+                line-height: 1.3 !important;
+            }
+            .eko-paired-header p {
+                font-size: 16px !important;
+            }
+            .eko-ipg-header h2 {
+                font-size: 28px !important;
+            }
+            .eko-ipg-header p {
+                font-size: 16px !important;
+            }
+            
+            /* Hero Section */
+            .style-17 {
+                flex-direction: column-reverse; /* Put text above image or stack */
+            }
+            .style-18, .style-20 {
+                width: 100% !important;
+                padding: 0 15px !important;
+            }
+            .style-18 {
+                margin-top: 2rem !important;
+            }
+            .style-21 {
+                height: auto !important;
+                padding: 1rem 0 2rem !important;
+                text-align: center;
+            }
+            .style-24 {
+                font-size: 32px !important;
+                line-height: 1.3 !important;
+            }
+            .style-43 {
+                font-size: 16px !important;
+            }
+            .hero-carousel {
+                max-width: 100% !important;
+            }
+            .hero-img {
+                height: 300px !important;
+            }
+            /* Menyesuaikan navbar di mobile jika diperlukan */
+            .style-10 {
+                margin-top: 15px;
+            }
+            .style-11 {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+            .style-12, .style-14 {
+                margin: 5px 0;
+            }
+            
+            /* Footer Section */
+            .style-288 {
+                flex-direction: column;
+                gap: 24px;
+            }
+            .style-289, .style-297 {
+                width: 100% !important;
+                text-align: center;
+                padding: 0 15px !important;
+            }
+            .style-297 {
+                margin-top: 1rem !important;
+            }
+            .style-299 {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 16px;
+                padding-left: 0 !important;
+            }
+            /* Center elements inside list items */
+            .style-300, .style-308, .style-312 {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+            }
+        } /* End of max-width: 991px overrides */
+        
+
+        /* --- Large TV & Ultra-Wide Desktop (min-width: 1600px) --- */
+        @media (min-width: 1600px) {
+            /* Adapt Card Shapes for TV (rounder, more spacious padding) */
+            .eko-paired-card {
+                border-radius: 32px !important;
+                padding: 60px 48px !important;
+            }
+            .eko-card-square {
+                border-radius: 28px !important;
+                padding: 48px 36px 40px !important;
+                gap: 24px !important;
+            }
+            .eko-ipg-main, .eko-ipg-chart-box {
+                border-radius: 28px !important;
+                padding: 48px 40px !important;
+            }
+            .eko-split {
+                max-width: 1400px !important;
+                gap: 40px !important;
+            }
+
+            /* Containers */
+            .style-16, .style-61, .style-287, .style-3 {
+                max-width: 1536px !important;
+                margin: 0 auto;
+            }
+            .style-18, .style-20 {
+                padding: 0 40px !important;
+            }
+            /* Hero adjustments for larger screens */
+            .style-21 {
+                height: 800px !important;
+            }
+            .style-24 {
+                font-size: 64px !important;
+                line-height: 1.2 !important;
+            }
+            .style-43 {
+                font-size: 24px !important;
+                line-height: 1.6 !important;
+                margin-top: 16px !important;
+            }
+            .hero-carousel {
+                max-width: 1000px !important;
+            }
+            .hero-img {
+                height: 600px !important;
+                border-radius: 36px !important;
+            }
+            .hero-overlay {
+                padding: 40px !important;
+                border-radius: 0 0 36px 36px !important;
+            }
+            .hero-overlay h2 {
+                font-size: 40px !important;
+            }
+            .hero-overlay p {
+                font-size: 22px !important;
+            }
+            .style-59 {
+                height: 72px !important;
+            }
+        }
+        /* --- 100% Guaranteed Mobile Overrides (Based on Screenshot Feedback) --- */
+        @media (max-width: 991px) {
+            /* Fix IPG card completely centering */
+            .eko-ipg-main {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
+                text-align: center !important;
+                position: relative !important;
+            }
+            /* Make sure the badge stays at the top right corner */
+            .eko-ipg-main .badge {
+                position: absolute !important;
+                top: 16px !important;
+                right: 16px !important;
+            }
+            /* Prevent Penduduk, PDRB, and Inflasi cards from being full width on mobile */
+            .eko-paired-grid, .eko-ipg-grid, .eko-inflasi-grid {
+                padding-left: 20px !important;
+                padding-right: 20px !important;
+                gap: 20px !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="style-0">
+    <div class="style-1"></div>
+    <nav class="style-2">
+        <div class="style-3">
+            <a class="style-4" href="#">
+                <img src="../assets/img/logo_bps.png" alt="Logo" height="48" class="style-5" /> </a> <a class="style-6" href="#">
+                <img src="../assets/img/logo.png" alt="Logo" height="36" class="style-7" /> </a> <button class="style-8" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="style-9"></span> </button>
+            <div class="style-10">
+                <ul class="style-11">
+                    <li class="style-12">
+                        <button class="style-13" data-bs-toggle="modal" data-bs-target="#faqModal">
+                            Home
+                        </button>
+                    </li>
+                    <li class="style-14 nav-dropdown">
+                        <a class="style-15" href="#">Kabupaten / Kota ▾</a>
+                        <ul class="nav-dropdown-menu">
+                            <li><a href="provinsi_kepri.html">Provinsi Kepulauan Riau</a></li>
+                            <li><a href="batam.html">Kota Batam</a></li>
+                            <li><a href="tanjungpinang.html">Kota Tanjungpinang</a></li>
+                            <li><a href="bintan.html" class="active">Kab. Bintan</a></li>
+                            <li><a href="karimun.html">Kab. Karimun</a></li>
+                            <li><a href="natuna.html">Kab. Natuna</a></li>
+                            <li><a href="lingga.html">Kab. Lingga</a></li>
+                            <li><a href="anambas.html">Kab. Kepulauan Anambas</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="style-16">
+        <div class="style-17">
+<!--            <div class="style-18">
+                <img src="../assets/img/kepri.jpeg" alt="hero image - petugas sensus" class="style-19" />
+                </div> -->
+
+            <div class="style-18">
+
+                <div class="hero-carousel">
+
+                    <!-- Slide 1 -->
+                    <div class="hero-slide">
+                        <img src="../assets/img/tpi.jpeg" class="hero-img">
+                        <div class="hero-overlay">
+                            <h2>Kota Tanjungpinang</h2>
+                            <p>Pusat pemerintahan dan pariwisata budaya Melayu</p>
+                        </div>
+                    </div>
+                    <div class="hero-slide active">
+                        <img src="../assets/img/bintan.jpeg" class="hero-img">
+                        <div class="hero-overlay">
+                            <h2>Bintan</h2>
+                            <p>Pusat industri manufaktur dan perdagangan internasional.</p>
+                        </div>
+                    </div>
+
+                    <!-- tombol -->
+                    <button class="hero-btn prev" onclick="heroMove(-1)">❮</button>
+                    <button class="hero-btn next" onclick="heroMove(1)">❯</button>
+
+                    <!-- DOT INDICATOR -->
+                    <div class="hero-dots" id="heroDots"></div>
+
+                </div>
+
+            </div>
+            <div class="style-20">
+                <div class="style-21">
+                    <div class="style-22">
+                        <h2 class="style-24">Permata Ekonomi <br> di Gerbang Utara Indonesia</h2>
+                        <h6 class="style-43">Provinsi Kepulauan Riau merupakan salah satu pusat pertumbuhan ekonomi nasional
+                        yang didukung oleh sektor industri, perdagangan internasional, dan ekonomi maritim.
+                        Letaknya yang strategis di jalur perdagangan global menjadikan wilayah ini memiliki
+                        peran penting dalam mendukung daya saing ekonomi Indonesia.</h6>
+                        <div class="style-58">
+                        </div> <img src="../assets/img/aset2.png" alt="dots" height="48" class="style-59" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="style-60">
+        <div class="style-61">
+            <div class="style-62">
+                <h2 class="style-63">Indikator Strategis Kabupaten Bintan</h2>
+                <p class="style-64">mengacu pada indikator kinerja utama pemerintah
+                </p>
+                
+                <p class="style-67">Sensus Ekonomi&nbsp;merupakan program pemerintah
+                    untuk&nbsp;menyediakan
+                    <span class="style-68">data dasar seluruh kegiatan ekonomi</span>&nbsp;yang mencakup 18 kategori:
+                </p>
+            </div>
+        </div>
+        <div class="style-69">
+            
+            
+        <div class="style-69">
+<!-- ====== INDIKATOR 1: PERTUMBUHAN EKONOMI (ORANGE BACKGROUND) ====== -->
+    <div style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); padding-left: calc(50vw - 50%); padding-right: calc(50vw - 50%); background: #e37f2a; padding-top: 64px; padding-bottom: 64px;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div class="eko-section-header">
+                <h3 style="color: #ffffff;">Pertumbuhan Ekonomi</h3>
+                <p style="color: rgba(255,255,255,0.9);">Mengukur persentase perubahan nilai tambah barang dan jasa riil dari tahun ke tahun.</p>
+            </div>
+            
+            <div class="eko-split">
+                <!-- Kiri: Card Utama -->
+                <div class="eko-card-square">
+                    <div class="eko-card-badge">Tahunan</div>
+                    <div class="eko-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                            <polyline points="17 6 23 6 23 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="eko-card-value">6,69<span class="eko-card-unit">%</span></div>
+                    <div class="eko-card-label">Pertumbuhan Ekonomi</div>
+                    <div class="eko-card-sub">Kabupaten Bintan &bull; 2024</div>
+                </div>
+
+                <!-- Kanan: Tabel BPS -->
+                <div class="eko-detail">
+                    <table class="eko-table">
+                        <thead>
+                            <tr class="eko-thead-title">
+                                <th colspan="5">Pertumbuhan Ekonomi &mdash; Triwulanan (Persen)</th>
+                            </tr>
+                            <tr class="eko-thead-year">
+                                <th rowspan="2">Periode</th>
+                                <th colspan="4">2025</th>
+                            </tr>
+                            <tr class="eko-thead-cols">
+                                <th>Triwulan I</th>
+                                <th>Triwulan II</th>
+                                <th>Triwulan III</th>
+                                <th>Triwulan IV</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="eko-row-label">C-to-C</td>
+                                <td>5,16</td>
+                                <td>6,15</td>
+                                <td>6,60</td>
+                                <td>6,94</td>
+                            </tr>
+                            <tr>
+                                <td class="eko-row-label">Q-to-Q</td>
+                                <td class="eko-negative">-2,78</td>
+                                <td>2,51</td>
+                                <td>0,85</td>
+                                <td>7,35</td>
+                            </tr>
+                            <tr>
+                                <td class="eko-row-label">Y-on-Y</td>
+                                <td>5,16</td>
+                                <td>7,14</td>
+                                <td>7,48</td>
+                                <td>7,89</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Histogram Pertumbuhan Ekonomi 5 Tahun -->
+            <div class="eko-chart-wrapper">
+                <div class="eko-chart-header">
+                    <h4 class="eko-chart-title">Pertumbuhan Ekonomi Tahunan — Kabupaten Bintan</h4>
+                    <span class="eko-chart-subtitle">Perbandingan 5 Tahun Terakhir (Persen)</span>
+                </div>
+                <div class="eko-histogram" id="ekoHistogram">
+                    <!-- Bars will be injected by JS -->
+                </div>
+                <div class="eko-chart-footer">
+                </div>
+            </div>
+
+            <script>
+            (function() {
+                const WILAYAH_KEY = 'bintan'; // Change per region page
+                fetch('../assets/data/ekonomi.json')
+                    .then(r => r.json())
+                    .then(data => {
+                        const tahun = data.tahun;
+                        const nilai = data.wilayah[WILAYAH_KEY].tahunan;
+                        renderHistogram(tahun, nilai);
+                    })
+                    .catch(() => {
+                        // Fallback if fetch fails (file:// protocol)
+                        const tahun = [2020, 2021, 2022, 2023, 2024];
+                        const nilai = [-2.55, 4.75, 6.84, 7.04, 6.69];
+                        renderHistogram(tahun, nilai);
+                    });
+
+                function renderHistogram(tahun, nilai) {
+                    const container = document.getElementById('ekoHistogram');
+                    if (!container) return;
+
+                    const maxAbs = Math.max(...nilai.map(v => Math.abs(v)));
+                    const maxVal = Math.ceil(maxAbs / 2) * 2; // Round up to even number
+
+                    // Create Y-axis labels
+                    const yAxis = document.createElement('div');
+                    yAxis.className = 'eko-y-axis';
+                    const steps = 5;
+                    for (let i = steps; i >= -1; i--) {
+                        const label = document.createElement('span');
+                        const val = ((maxVal / steps) * i).toFixed(0);
+                        label.textContent = val;
+                        yAxis.appendChild(label);
+                    }
+                    container.appendChild(yAxis);
+
+                    // Create bars area
+                    const barsArea = document.createElement('div');
+                    barsArea.className = 'eko-bars-area';
+
+                    // Zero line position: percentage from top
+                    const totalRange = maxVal + (maxVal / steps); // positive + negative space
+                    const zeroFromTop = (maxVal / totalRange) * 100;
+
+                    const zeroLine = document.createElement('div');
+                    zeroLine.className = 'eko-zero-line';
+                    zeroLine.style.top = zeroFromTop + '%';
+                    barsArea.appendChild(zeroLine);
+
+                    tahun.forEach((yr, i) => {
+                        const val = nilai[i];
+                        const barGroup = document.createElement('div');
+                        barGroup.className = 'eko-bar-group';
+
+                        const bar = document.createElement('div');
+                        bar.className = 'eko-bar' + (val < 0 ? ' eko-bar-negative' : '');
+
+                        const heightPct = (Math.abs(val) / totalRange) * 100;
+
+                        if (val >= 0) {
+                            bar.style.height = '0%';
+                            bar.style.bottom = (100 - zeroFromTop) + '%';
+                            bar.style.position = 'absolute';
+                            bar.style.left = '0';
+                            bar.style.right = '0';
+                            setTimeout(() => { bar.style.height = heightPct + '%'; }, 100 + i * 120);
+                        } else {
+                            bar.style.height = '0%';
+                            bar.style.top = zeroFromTop + '%';
+                            bar.style.position = 'absolute';
+                            bar.style.left = '0';
+                            bar.style.right = '0';
+                            setTimeout(() => { bar.style.height = heightPct + '%'; }, 100 + i * 120);
+                        }
+
+                        // Value label
+                        const valLabel = document.createElement('span');
+                        valLabel.className = 'eko-bar-value';
+                        valLabel.textContent = val.toFixed(2).replace('.', ',');
+                        bar.appendChild(valLabel);
+
+                        // Year label
+                        const yrLabel = document.createElement('span');
+                        yrLabel.className = 'eko-bar-year';
+                        yrLabel.textContent = yr;
+
+                        barGroup.appendChild(bar);
+                        barGroup.appendChild(yrLabel);
+                        barsArea.appendChild(barGroup);
+                    });
+
+                    container.appendChild(barsArea);
+                }
+            })();
+            </script>
+
+            <!-- Deskripsi Indikator -->
+            <div class="eko-description" style="margin-top: 24px;">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+            </div>
+
+            </div>
+            
+        </div>
+    </div>
+        </div>
+    </div>
+<!-- ====== INDIKATOR 2: INDEKS PEMBANGUNAN MANUSIA (IPM) (WHITE BACKGROUND) ====== -->
+    <div style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); padding-left: calc(50vw - 50%); padding-right: calc(50vw - 50%); background: #ffffff; padding-top: 64px; padding-bottom: 64px;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div class="eko-dashboard-section" id="section-ipm">
+                <!-- ====== INDIKATOR 2: INDEKS PEMBANGUNAN MANUSIA (IPM) ====== -->
+    <div class="eko-dashboard-section" id="section-ipm">
+        <div class="eko-section-header">
+            <h3>Indeks Pembangunan Manusia (IPM)</h3>
+            <p>Mengukur capaian pembangunan manusia berbasis kualitas hidup, pendidikan, dan standar hidup.</p>
+        </div>
+
+        <!-- Top row: Main Card + 3 Metadata Cards -->
+        <div class="eko-ipm-grid">
+            <!-- Main Card -->
+            <div class="eko-ipm-main-card">
+                <span class="eko-card-badge">IPM 2025</span>
+                <div class="eko-ipm-value" id="ipm-main-val">83,80</div>
+                <div class="eko-ipm-growth-label"><i class="bi bi-caret-up-fill"></i>&#9650; <span id="ipm-growth-val">0,58%</span> dari 2024</div>
+            </div>
+
+            <!-- 3 Metadata Cards Container -->
+            <div class="eko-ipm-meta-container">
+                <!-- Card 1 -->
+                <div class="eko-ipm-meta-card">
+                    <div class="meta-icon" style="color: #2d9cdb; background: rgba(45,156,219,0.1);">�</div>
+                    <div class="meta-text" style="justify-content: center;">
+                        <span class="meta-title" style="margin: 0; font-size: 15px; color: #1a1a2e;">Umur Harapan Hidup</span>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="eko-ipm-meta-card">
+                    <div class="meta-icon" style="color: #f2994a; background: rgba(242,153,74,0.1);">�</div>
+                    <div class="meta-text" style="justify-content: center;">
+                        <span class="meta-title" style="margin: 0; font-size: 15px; color: #1a1a2e;">Pengetahuan (Sekolah)</span>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="eko-ipm-meta-card">
+                    <div class="meta-icon" style="color: #27ae60; background: rgba(39,174,96,0.1);">�</div>
+                    <div class="meta-text" style="justify-content: center;">
+                        <span class="meta-title" style="margin: 0; font-size: 15px; color: #1a1a2e;">Standar Hidup Layak</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Histogram -->
+        <div class="eko-chart-wrapper" style="margin-top: 24px;">
+            <div class="eko-chart-header">
+                <h4 class="eko-chart-title">Perkembangan IPM Tahunan — Kabupaten Bintan</h4>
+                <span class="eko-chart-subtitle">Perbandingan 2020 - 2025</span>
+            </div>
+            <div class="eko-histogram" id="ipmHistogram">
+                <!-- Bars will be injected by JS -->
+            </div>
+            <div class="eko-chart-footer">
+                <span>Sumber: BPS Provinsi Kepulauan Riau (Metode Baru SP2020)</span>
+            </div>
+        </div>
+
+        <script>
+        (function() {
+            const WILAYAH_KEY = 'bintan';
+            fetch('../assets/data/ipm.json')
+                .then(r => r.json())
+                .then(data => {
+                    const wData = data.wilayah[WILAYAH_KEY];
+                    // Render histogram 2020-2025
+                    renderIpmHistogram(data.tahun, wData.tahunan);
+                })
+                .catch(() => {
+                    // Fallback
+                    renderIpmHistogram(
+                        [2020, 2021, 2022, 2023, 2024, 2025],
+                        [81.81, 81.82, 82.25, 82.64, 83.32, 83.80]
+                    );
+                });
+
+            function renderIpmHistogram(years, vals) {
+                const ctx = document.getElementById('ipmHistogram');
+                if (!ctx) return;
+                
+                // For IPM, differences are small. Start Y-axis slightly below min, end slightly above max
+                const minVal = Math.floor(Math.min(...vals) - 1);
+                const maxVal = Math.ceil(Math.max(...vals) + 1);
+                const range = maxVal - minVal;
+
+                // Create Y-axis labels
+                const yAxis = document.createElement('div');
+                yAxis.className = 'eko-y-axis';
+                const steps = 4;
+                for (let i = steps; i >= 0; i--) {
+                    const label = document.createElement('span');
+                    const val = (minVal + (range / steps) * i).toFixed(0);
+                    label.textContent = val;
+                    yAxis.appendChild(label);
+                }
+                ctx.appendChild(yAxis);
+
+                // Create bars area
+                const barsArea = document.createElement('div');
+                barsArea.className = 'eko-bars-area';
+
+                years.forEach((yr, i) => {
+                    const val = vals[i];
+                    const barGroup = document.createElement('div');
+                    barGroup.className = 'eko-bar-group';
+
+                    const bar = document.createElement('div');
+                    bar.className = 'eko-bar';
+                    // We reuse .eko-bar from economy section !
+
+                    const heightPct = Math.max(5, ((val - minVal) / range) * 100); 
+
+                    bar.style.height = '0%';
+                    bar.style.bottom = '0';
+                    bar.style.position = 'absolute';
+                    bar.style.left = '0';
+                    bar.style.right = '0';
+                    
+                    // We delay animation for smooth effect
+                    setTimeout(() => { bar.style.height = heightPct + '%'; }, 100 + i * 120);
+
+                    // Value label
+                    const valLabel = document.createElement('span');
+                    valLabel.className = 'eko-bar-value';
+                    valLabel.textContent = val.toFixed(2).replace('.', ',');
+                    bar.appendChild(valLabel);
+
+                    // Year label
+                    const yrLabel = document.createElement('span');
+                    yrLabel.className = 'eko-bar-year';
+                    yrLabel.textContent = yr;
+
+                    barGroup.appendChild(bar);
+                    barGroup.appendChild(yrLabel);
+                    barsArea.appendChild(barGroup);
+                });
+
+                ctx.appendChild(barsArea);
+            }
+        })();
+        </script>
+    </div>
+
+    <!-- Deskripsi Indikator IPM -->
+    <div class="eko-description" style="margin-top: 24px; margin-bottom: 40px;">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    </div>
+            </div>
+        </div>
+    </div>
+<!-- ====== INDIKATOR 3: INDEKS PEMBANGUNAN GENDER (IPG) (CREAM BACKGROUND) ====== -->
+    <div style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); padding-left: calc(50vw - 50%); padding-right: calc(50vw - 50%); background: #faf3ec; padding-top: 64px; padding-bottom: 64px;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            
+    <div class="eko-ipg-section" id="section-ipg">
+        <div class="eko-ipg-container">
+            <div class="eko-ipg-header">
+                <h3>Indeks Pembangunan Gender (IPG)</h3>
+                <p>Mengukur kesetaraan capaian rasio pembangunan manusia antara laki-laki dan perempuan.</p>
+            </div>
+
+            <div class="eko-ipg-grid">
+                <!-- Main IPG Card -->
+                <div class="eko-ipg-main">
+                    <span class="badge">IPG 2024</span>
+                    <div class="eko-ipg-value" id="ipg-main-val">95,72</div>
+                    <div class="eko-ipg-growth"><i class="bi bi-caret-up-fill"></i> <span id="ipg-growth-val">0,77</span> poin dari 2023</div>
+                </div>
+
+                <!-- Histogram Chart Area -->
+                <div class="eko-ipg-chart-box">
+                    <div class="eko-chart-header" style="margin-bottom: 20px;">
+                        <h4 class="eko-chart-title" style="font-size: 16px;">Perkembangan IPG Tahunan</h4>
+                        <span class="eko-chart-subtitle">Kabupaten Bintan (2020 - 2024)</span>
+                    </div>
+                    <!-- Reuse the eko-bars-area styling -->
+                    <div class="eko-histogram" id="ipgHistogram" style="height: 180px;">
+                        <!-- JS injected bars -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deskripsi IPG -->
+            <div style="margin-top: 24px;">
+                <p style="background: rgba(255,255,255,0.7); backdrop-filter: blur(8px); border-radius: 14px; padding: 20px 28px; font-size: 14px; line-height: 1.7; color: #444; margin: 0; border: 1px solid rgba(0,0,0,0.03);">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            
+            <script>
+            (function() {
+                const WILAYAH_KEY = 'bintan';
+                fetch('../assets/data/ipg.json')
+                    .then(r => r.json())
+                    .then(data => {
+                        const wData = data.wilayah[WILAYAH_KEY];
+                        renderIpgHistogram(data.tahun, wData.tahunan);
+                    })
+                    .catch(() => {
+                        // Fallback
+                        renderIpgHistogram([2020, 2021, 2022, 2023, 2024], [94.43, 94.51, 94.75, 94.95, 95.72]);
+                    });
+
+                function renderIpgHistogram(years, vals) {
+                    const ctx = document.getElementById('ipgHistogram');
+                    if (!ctx) return;
+                    
+                    const minVal = Math.floor(Math.min(...vals) - 1);
+                    const maxVal = Math.ceil(Math.max(...vals) + 1);
+                    const range = maxVal - minVal;
+
+                    // Y-axis
+                    const yAxis = document.createElement('div');
+                    yAxis.className = 'eko-y-axis';
+                    const steps = 3;
+                    for (let i = steps; i >= 0; i--) {
+                        const label = document.createElement('span');
+                        const val = (minVal + (range / steps) * i).toFixed(0);
+                        label.textContent = val;
+                        yAxis.appendChild(label);
+                    }
+                    ctx.appendChild(yAxis);
+
+                    // Bars
+                    const barsArea = document.createElement('div');
+                    barsArea.className = 'eko-bars-area';
+
+                    years.forEach((yr, i) => {
+                        const val = vals[i];
+                        const barGroup = document.createElement('div');
+                        barGroup.className = 'eko-bar-group';
+
+                        const bar = document.createElement('div');
+                        bar.className = 'eko-bar';
+                        
+                        // Orange theme matching IPG header
+                        bar.style.background = 'linear-gradient(180deg, #E37F2A 0%, #f5a623 100%)';
+                        bar.style.boxShadow = '0 -2px 8px rgba(227,127,42,0.2)';
+
+                        const heightPct = Math.max(5, ((val - minVal) / range) * 100); 
+
+                        bar.style.height = '0%';
+                        bar.style.bottom = '0';
+                        bar.style.position = 'absolute';
+                        bar.style.left = '0';
+                        bar.style.right = '0';
+                        
+                        setTimeout(() => { bar.style.height = heightPct + '%'; }, 100 + i * 120);
+
+                        const valLabel = document.createElement('span');
+                        valLabel.className = 'eko-bar-value';
+                        valLabel.textContent = val.toFixed(2).replace('.', ',');
+                        bar.appendChild(valLabel);
+
+                        const yrLabel = document.createElement('span');
+                        yrLabel.className = 'eko-bar-year';
+                        yrLabel.textContent = yr;
+
+                        barGroup.appendChild(bar);
+                        barGroup.appendChild(yrLabel);
+                        barsArea.appendChild(barGroup);
+                    });
+
+                    ctx.appendChild(barsArea);
+                }
+            })();
+            </script>
+        </div>
+    </div>
+        </div>
+    </div>
+<!-- ====== INDIKATOR 4: TPT & APS (PAIRED) (WHITE BACKGROUND) ====== -->
+    <div style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); padding-left: calc(50vw - 50%); padding-right: calc(50vw - 50%); background: #ffffff; padding-top: 64px; padding-bottom: 64px;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            
+    <div class="eko-paired-section" id="section-tpt-aps">
+        <div class="eko-paired-grid">
+            
+            <!-- LEFT: TPT -->
+            <div class="eko-paired-card eko-tpt-theme">
+                <div class="eko-paired-card-header">
+                    <h4 class="eko-paired-card-title"><i class="bi bi-briefcase-fill" style="color:#E37F2A;"></i> Tingkat Pengangguran Terbuka</h4>
+                    <p class="eko-paired-card-subtitle">Kabupaten Bintan (% Angkatan Kerja)</p>
+                </div>
+                <div class="eko-paired-highlight">
+                    <span class="eko-paired-highlight-val" id="tpt-main-val">7,57%</span>
+                    <span class="eko-paired-highlight-desc">Tahun 2025</span>
+                </div>
+                <div class="eko-histogram" id="tptHistogram" style="height: 160px;">
+                    <!-- JS injected bars -->
+                </div>
+            </div>
+
+            <!-- RIGHT: APS -->
+            <div class="eko-paired-card eko-aps-theme">
+                <div class="eko-paired-card-header">
+                    <h4 class="eko-paired-card-title"><i class="bi bi-mortarboard-fill" style="color:#2d9cdb;"></i> Angka Partisipasi Sekolah</h4>
+                    <p class="eko-paired-card-subtitle">Kabupaten Bintan (Usia 16-18 Tahun)</p>
+                </div>
+                <div class="eko-paired-highlight">
+                    <span class="eko-paired-highlight-val" id="aps-main-val">85,85%</span>
+                    <span class="eko-paired-highlight-desc">Tahun 2023</span>
+                </div>
+                <div class="eko-histogram" id="apsHistogram" style="height: 160px;">
+                    <!-- JS injected bars -->
+                </div>
+            </div>
+
+        </div>
+        
+        <!-- Deskripsi Indikator Paired (Clean BPS Style) -->
+        <div class="eko-paired-description">
+            <div class="eko-paired-description-box eko-tpt-desc-box">
+                <h5>Tren Penurunan TPT</h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</strong>.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <div class="eko-paired-description-box eko-aps-desc-box">
+                <h5>Partisipasi Pendidikan Menengah</h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<strong>lorem ipsum</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat..</p>
+            </div>
+        </div>
+
+        <script>
+        (function() {
+            const WILAYAH_KEY = 'bintan';
+
+            // Fetch TPT
+            fetch('../assets/data/tpt.json')
+                .then(r => r.json())
+                .then(data => {
+                    const wData = data.wilayah[WILAYAH_KEY];
+                    renderHistogram('tptHistogram', data.tahun, wData.tahunan, '#E37F2A', true);
+                })
+                .catch(() => renderHistogram('tptHistogram', [2020,2021,2022,2023,2024,2025], [11.79,11.64,9.56,8.14,7.68,7.57], '#E37F2A', true));
+
+            // Fetch APS
+            fetch('../assets/data/aps.json')
+                .then(r => r.json())
+                .then(data => {
+                    const wData = data.wilayah[WILAYAH_KEY];
+                    renderHistogram('apsHistogram', data.tahun, wData.tahunan, '#2d9cdb', false);
+                })
+                .catch(() => renderHistogram('apsHistogram', [2020,2021,2022,2023], [84.74, 84.45, 85.12, 85.85], '#2d9cdb', false));
+
+            function renderHistogram(ctxId, years, vals, colorHex, isNegativeGood) {
+                const ctx = document.getElementById(ctxId);
+                if (!ctx) return;
+                
+                const valRange = Math.max(...vals) - Math.min(...vals);
+                const padding = Math.max(2, valRange * 0.2); // 20% padding or at least 2
+                const minVal = Math.max(0, Math.floor(Math.min(...vals) - padding));
+                const maxVal = Math.ceil(Math.max(...vals) + padding);
+                const range = maxVal - minVal;
+
+                // Y-axis
+                const yAxis = document.createElement('div');
+                yAxis.className = 'eko-y-axis';
+                const steps = 3;
+                for (let i = steps; i >= 0; i--) {
+                    const label = document.createElement('span');
+                    const val = (minVal + (range / steps) * i).toFixed(0);
+                    label.textContent = val;
+                    yAxis.appendChild(label);
+                }
+                ctx.appendChild(yAxis);
+
+                // Bars
+                const barsArea = document.createElement('div');
+                barsArea.className = 'eko-bars-area';
+
+                years.forEach((yr, i) => {
+                    const val = vals[i];
+                    const barGroup = document.createElement('div');
+                    barGroup.className = 'eko-bar-group';
+
+                    const bar = document.createElement('div');
+                    bar.className = 'eko-bar';
+                    
+                    bar.style.background = `linear-gradient(180deg, ${colorHex} 0%, ${colorHex}dd 100%)`;
+                    bar.style.boxShadow = `0 -2px 8px ${colorHex}33`;
+
+                    const heightPct = Math.max(5, ((val - minVal) / range) * 100); 
+
+                    bar.style.height = '0%';
+                    bar.style.bottom = '0';
+                    bar.style.position = 'absolute';
+                    bar.style.left = '0';
+                    bar.style.right = '0';
+                    setTimeout(() => { bar.style.height = heightPct + '%'; }, 100 + i * 120);
+
+                    const valLabel = document.createElement('span');
+                    valLabel.className = 'eko-bar-value';
+                    valLabel.textContent = val.toFixed(2).replace('.', ',');
+                    
+                    // Specific styling for TPT text if it goes down (is good)
+                    if(isNegativeGood && i > 0 && vals[i] < vals[i-1]) {
+                        valLabel.style.color = '#27ae60'; // green if unemployment drops
+                    } else if (!isNegativeGood && i > 0 && vals[i] > vals[i-1]){
+                        valLabel.style.color = '#27ae60'; // green if school participation rises
+                    }
+
+                    bar.appendChild(valLabel);
+
+                    const yrLabel = document.createElement('span');
+                    yrLabel.className = 'eko-bar-year';
+                    yrLabel.textContent = yr;
+
+                    barGroup.appendChild(bar);
+                    barGroup.appendChild(yrLabel);
+                    barsArea.appendChild(barGroup);
+                });
+
+                ctx.appendChild(barsArea);
+            }
+        })();
+        </script>
+    </div>
+
+    <!-- <div class="style-129">
+                    <div class="style-133">
+                        <h4 class="style-134">Mengapa Data ini penting?</h4>
+                        <p class="style-135">Data ini menyediakan informasi strategis yang akurat dan terkini untuk mendukung perencanaan, pemantauan, dan pengambilan keputusan pembangunan di Kepulauan Riau secara tepat sasaran.</p>
+                        <i class="bi bi-eye-fill"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="style-136"></div>
+    </div> -->
+
+<!-- ====== INDIKATOR 5: KEMISKINAN & RASIO GINI (CREAM BACKGROUND) ====== -->
+    <div style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); padding-left: calc(50vw - 50%); padding-right: calc(50vw - 50%); background: #faf3ec; padding-top: 64px; padding-bottom: 64px;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div class="eko-paired-section" style="margin: 0 auto;">
+                <div class="eko-paired-grid">
+
+                    <!-- LEFT: KEMISKINAN -->
+                    <div class="eko-paired-card eko-kemiskinan-theme">
+                        <div class="eko-paired-card-header">
+                            <h4 class="eko-paired-card-title"><i class="bi bi-people-fill"></i> Persentase Penduduk Miskin</h4>
+                            <p class="eko-paired-card-subtitle">Kabupaten Bintan (% dari Total Penduduk)</p>
+                        </div>
+                        <div class="eko-paired-highlight">
+                            <span class="eko-paired-highlight-val" id="kemiskinan-main-val">3,81%</span>
+                            <span class="eko-paired-highlight-desc">Tahun 2025</span>
+                        </div>
+                        <div class="eko-histogram" id="kemiskinanHistogram" style="height: 160px;">
+                            <!-- JS injected bars -->
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: RASIO GINI -->
+                    <div class="eko-paired-card eko-gini-theme">
+                        <div class="eko-paired-card-header">
+                            <h4 class="eko-paired-card-title"><i class="bi bi-pie-chart-fill"></i> Rasio Gini</h4>
+                            <p class="eko-paired-card-subtitle">Kabupaten Bintan (Tingkat Ketimpangan)</p>
+                        </div>
+                        <div class="eko-paired-highlight">
+                            <span class="eko-paired-highlight-val" id="gini-main-val">0,338</span>
+                            <span class="eko-paired-highlight-desc">Tahun 2024</span>
+                        </div>
+                        <div class="eko-histogram" id="giniHistogram" style="height: 160px;">
+                            <!-- JS injected bars -->
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Deskripsi Indikator Paired -->
+                <div class="eko-paired-description">
+                    <div class="eko-paired-description-box eko-kemiskinan-desc-box">
+                        <h5>Penurunan Angka Kemiskinan</h5>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<strong>Rem</strong>. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                    <div class="eko-paired-description-box eko-gini-desc-box">
+                        <h5>Ketimpangan Pendapatan (Rasio Gini)</h5>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                </div>
+
+                <!-- Kemiskinan & Gini Script -->
+                <script>
+                (function() {
+                    const WILAYAH_KEY = 'bintan';
+
+                    fetch('../assets/data/kemiskinan.json')
+                        .then(r => r.json())
+                        .then(data => {
+                            const wData = data.wilayah[WILAYAH_KEY];
+                            if(wData) renderKemChart('kemiskinanHistogram', data.tahun, wData.tahunan, '#e37f2a', true);
+                        })
+                        .catch(() => {
+                            renderKemChart('kemiskinanHistogram', [2021, 2022, 2023, 2024, 2025], [5.05, 5.19, 4.67, 4.26, 3.81], '#e37f2a', true);
+                        });
+
+                    fetch('../assets/data/gini.json')
+                        .then(r => r.json())
+                        .then(data => {
+                            const wData = data.wilayah[WILAYAH_KEY];
+                            if(wData) renderKemChart('giniHistogram', data.tahun, wData.tahunan, '#8e44ad', true);
+                        })
+                        .catch(() => {
+                            renderKemChart('giniHistogram', [2020, 2021, 2022, 2023, 2024], [0.354, 0.351, 0.352, 0.342, 0.338], '#8e44ad', true);
+                        });
+
+                    function renderKemChart(ctxId, years, vals, colorHex, isNegativeGood) {
+                        const ctx = document.getElementById(ctxId);
+                        if (!ctx || !vals || vals.length === 0) return;
+                        const valRange = Math.max(...vals) - Math.min(...vals);
+                        const padding = Math.max(0.01, valRange * 0.2);
+                        const minVal = Math.max(0, Math.min(...vals) - padding);
+                        const maxVal = Math.max(...vals) + padding;
+                        const range = maxVal - minVal;
+                        ctx.innerHTML = '';
+                        const yAxis = document.createElement('div');
+                        yAxis.className = 'eko-y-axis';
+                        for (let i = 3; i >= 0; i--) {
+                            const label = document.createElement('span');
+                            const val = minVal + (range / 3) * i;
+                            label.textContent = val < 2 ? val.toFixed(3).replace('.',',') : val.toFixed(1).replace('.',',');
+                            yAxis.appendChild(label);
+                        }
+                        ctx.appendChild(yAxis);
+                        const barsArea = document.createElement('div');
+                        barsArea.className = 'eko-bars-area';
+                        years.forEach((yr, i) => {
+                            const val = vals[i];
+                            if (val === undefined || val === null) return;
+                            const barGroup = document.createElement('div');
+                            barGroup.className = 'eko-bar-group';
+                            const bar = document.createElement('div');
+                            bar.className = 'eko-bar';
+                            bar.style.background = `linear-gradient(180deg, ${colorHex} 0%, ${colorHex}dd 100%)`;
+                            bar.style.boxShadow = `0 -2px 8px ${colorHex}33`;
+                            let heightPct = 5;
+                            if(range > 0) heightPct = Math.max(5, ((val - minVal) / range) * 100);
+                            bar.style.height = '0%'; bar.style.bottom = '0'; bar.style.position = 'absolute'; bar.style.left = '0'; bar.style.right = '0';
+                            setTimeout(() => { bar.style.height = heightPct + '%'; }, 100 + i * 120);
+                            const valLabel = document.createElement('span');
+                            valLabel.className = 'eko-bar-value';
+                            valLabel.textContent = val < 2 ? val.toFixed(3).replace('.',',') : val.toFixed(2).replace('.',',');
+                            if(isNegativeGood && i > 0 && vals[i] < vals[i-1]) valLabel.style.color = '#27ae60';
+                            else if (!isNegativeGood && i > 0 && vals[i] > vals[i-1]) valLabel.style.color = '#27ae60';
+                            bar.appendChild(valLabel);
+                            const yrLabel = document.createElement('span');
+                            yrLabel.className = 'eko-bar-year';
+                            yrLabel.textContent = yr;
+                            barGroup.appendChild(bar); barGroup.appendChild(yrLabel); barsArea.appendChild(barGroup);
+                        });
+                        ctx.appendChild(barsArea);
+                    }
+                })();
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== INDIKATOR 6: PENDUDUK & PDRB (NEW DESIGN) ====== -->
+    <div style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); padding-left: calc(50vw - 50%); padding-right: calc(50vw - 50%); background: #e37f2a; padding-top: 48px; padding-bottom: 48px; position: relative;">
+
+        <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 2;">
+            
+            <div class="eko-paired-grid" style="grid-template-columns: 1fr 1fr; gap: 32px; padding-left: 24px; position: relative;">
+                  
+                <!-- TOP/LEFT: PENDUDUK -->
+                <div style="position: relative;">
+                    <div class="eko-paired-card" style="position: relative; z-index: 2; background: #ffffff; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border-radius: 20px; padding: 28px 24px;">
+                        <div class="eko-paired-card-header" style="margin-bottom: 16px;">
+                            <h4 class="eko-paired-card-title" style="color: #1a1a2e; font-size: 22px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.5px;">Jumlah Penduduk</h4>
+                            <p class="eko-paired-card-subtitle" style="color: #888; font-size: 13px;">Sensus Penduduk (Jiwa)</p>
+                        </div>
+                        
+                        <div class="eko-paired-highlight" style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 24px;">
+                            <span class="eko-paired-highlight-val" id="penduduk-val-main" style="color: #e37f2a; font-size: 40px; font-weight: 800; line-height: 1; letter-spacing: -1px;">1.196.396</span>
+                            <span class="eko-paired-highlight-desc" style="color: #888; font-size: 14px; font-weight: 600;">Tahun 2020</span>
+                        </div>
+                        
+                        <!-- New SP 2010 vs 2020 Layout -->
+                        <div style="border: 1px solid #eaeaea; border-radius: 12px; overflow: hidden;">
+                            <div style="background: #fafafa; padding: 12px; text-align: center; border-bottom: 1px solid #eaeaea;">
+                                <span style="color: #1a1a2e; font-size: 13px; font-weight: 700;">Hasil Sensus Penduduk (SP)</span>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; text-align: center;">
+                                <div style="padding: 16px; border-right: 1px solid #eaeaea; display: flex; flex-direction: column; gap: 8px;">
+                                    <span id="penduduk-val-2010" style="color: #1a1a2e; font-size: 15px; font-weight: 800;">944.285</span>
+                                    <span style="color: #888; font-size: 12px; font-weight: 600;">2010</span>
+                                </div>
+                                <div style="padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+                                    <span id="penduduk-val-2020" style="color: #e37f2a; font-size: 18px; font-weight: 800;">1.196.396</span>
+                                    <span style="color: #888; font-size: 12px; font-weight: 600;">2020</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Penjelasan Penduduk Inside Card -->
+                        <div style="margin-top: 32px; padding-top: 24px; border-top: 1px dashed #eaeaea;">
+                            <h5 style="color: #1a1a2e; font-size: 14px; font-weight: 700; margin-bottom: 8px;"><i class="bi bi-info-circle-fill" style="color: #e37f2a; margin-right: 6px;"></i>Penjelasan</h5>
+                            <p style="color: #666; font-size: 13px; line-height: 1.6; margin: 0;">
+                                Pertambahan jumlah penduduk Kabupaten Bintan mencerminkan daya tarik kota sebagai pusat perindustrian dan investasi. Data ini menjadi acuan dalam perencanaan infrastruktur dan pelayanan publik ke depan.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BOTTOM/RIGHT: PDRB -->
+                <div style="position: relative;">
+                    <div class="eko-paired-card" style="position: relative; z-index: 2; background: #ffffff; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border-radius: 20px; padding: 28px 24px;">
+                        <div class="eko-paired-card-header" style="margin-bottom: 16px;">
+                        <h4 class="eko-paired-card-title" style="color: #1a1a2e; font-size: 22px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.5px;">PDRB per Kapita</h4>
+                        <p class="eko-paired-card-subtitle" style="color: #888; font-size: 13px;">Atas Dasar Harga Berlaku (Ribu Rp)</p>
+                    </div>
+                    
+                    <div class="eko-paired-highlight" style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 24px;">
+                        <span id="pdrb-val-main" class="eko-paired-highlight-val" style="color: #27ae60; font-size: 40px; font-weight: 800; line-height: 1; letter-spacing: -1px;">182.507</span>
+                        <span class="eko-paired-highlight-desc" style="color: #888; font-size: 14px; font-weight: 600;">Tahun 2024</span>
+                    </div>
+                    
+                    <div class="eko-histogram" id="pdrbHistogramContainer" style="height: 160px; position: relative;"></div>
+                        
+                        <!-- Penjelasan PDRB Inside Card -->
+                        <div style="margin-top: 32px; padding-top: 24px; border-top: 1px dashed #eaeaea;">
+                            <h5 style="color: #1a1a2e; font-size: 14px; font-weight: 700; margin-bottom: 8px;"><i class="bi bi-info-circle-fill" style="color: #e37f2a; margin-right: 6px;"></i>Penjelasan</h5>
+                            <p style="color: #666; font-size: 13px; line-height: 1.6; margin: 0;">
+                                PDRB per Kapita menunjukkan rata-rata pendapatan penduduk. Peningkatan nilai ini mengindikasikan kesejahteraan ekonomi masyarakat Bintan yang semakin membaik seiring dengan pertumbuhan industri dan pariwisata.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+            (function() {
+                const WILAYAH_KEY = 'bintan'; // DO NOT REMOVE THIS LINE
+                
+                // Fetch Penduduk
+                fetch('../assets/data/penduduk.json')
+                    .then(res => res.json())
+                    .then(data => {
+                        const pend = data[WILAYAH_KEY];
+                        if (pend) {
+                            if(document.getElementById('penduduk-val-main')) document.getElementById('penduduk-val-main').textContent = pend['2020'].toLocaleString('id-ID');
+                            if(document.getElementById('penduduk-val-2020')) document.getElementById('penduduk-val-2020').textContent = pend['2020'].toLocaleString('id-ID');
+                            if(document.getElementById('penduduk-val-2010')) document.getElementById('penduduk-val-2010').textContent = pend['2010'].toLocaleString('id-ID');
+                        }
+                    }).catch(console.error);
+
+                // Fetch PDRB
+                fetch('../assets/data/pdrb.json')
+                    .then(res => res.json())
+                    .then(data => {
+                        const years = [2020, 2021, 2022, 2023, 2024];
+                        const vals = data[WILAYAH_KEY];
+                        
+                        if(document.getElementById('pdrb-val-main')) document.getElementById('pdrb-val-main').textContent = vals[vals.length - 1].toLocaleString('id-ID');
+
+                        setTimeout(() => {
+                    const ctx = document.getElementById('pdrbHistogramContainer');
+                    if (!ctx) return;
+                    const minVal = 120000;
+                    const maxVal = 190000;
+                    const range = maxVal - minVal;
+                    
+                    ctx.innerHTML = '';
+                    const yAxis = document.createElement('div');
+                    yAxis.className = 'eko-y-axis';
+                    for (let i = 3; i >= 0; i--) {
+                        const label = document.createElement('span');
+                        label.textContent = Math.round(minVal + (range / 3) * i).toLocaleString('id-ID');
+                        yAxis.appendChild(label);
+                    }
+                    ctx.appendChild(yAxis);
+                    
+                    const barsArea = document.createElement('div');
+                    barsArea.className = 'eko-bars-area';
+                    
+                    years.forEach((yr, i) => {
+                        const val = vals[i];
+                        const barGroup = document.createElement('div');
+                        barGroup.className = 'eko-bar-group';
+                        
+                        const bar = document.createElement('div');
+                        bar.className = 'eko-bar';
+                        bar.style.background = '#27ae60';
+                        bar.style.borderRadius = '4px 4px 0 0';
+                        
+                        const heightPct = Math.max(5, ((val - minVal) / range) * 100);
+                        bar.style.height = '0%';
+                        bar.style.bottom = '0';
+                        bar.style.position = 'absolute';
+                        bar.style.left = '0';
+                        bar.style.right = '0';
+                        
+                        setTimeout(() => { bar.style.height = heightPct + '%'; }, 100 + i * 120);
+                        
+                        const valLabel = document.createElement('span');
+                        valLabel.className = 'eko-bar-value';
+                        valLabel.textContent = val.toLocaleString('id-ID');
+                        valLabel.style.fontSize = '11px';
+                        valLabel.style.fontWeight = '700';
+                        valLabel.style.color = '#1a1a2e';
+                        bar.appendChild(valLabel);
+                        
+                        const yrLabel = document.createElement('span');
+                        yrLabel.className = 'eko-bar-year';
+                        yrLabel.textContent = yr;
+                        yrLabel.style.fontWeight = '600';
+                        
+                        barGroup.appendChild(bar);
+                        barGroup.appendChild(yrLabel);
+                        barsArea.appendChild(barGroup);
+                    });
+                    ctx.appendChild(barsArea);
+                }, 100);
+                }).catch(console.error);
+            })();
+            </script>
+
+        </div>
+    </div>
+
+    <!-- ====== INDIKATOR 7: INFLASI (WHITE BACKGROUND) ====== -->
+    <div style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); padding-left: calc(50vw - 50%); padding-right: calc(50vw - 50%); background: #ffffff; padding-top: 64px; padding-bottom: 96px;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div class="eko-inflasi-section" id="section-inflasi">
+                <div class="eko-ipg-container">
+                    <div class="eko-ipg-header">
+                        <h3 style="color: #1a1a2e;">Tingkat Inflasi (m-to-m)</h3>
+                        <p style="color: #444;">Perkembangan inflasi bulanan menunjukkan tingkat perubahan harga.</p>
+                    </div>
+
+                    <div class="eko-ipg-grid">
+                        <!-- Main Inflasi Card -->
+                        <div class="eko-ipg-main" style="background: #ffffff; border: 1px solid #eaeaea; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+                            <span class="badge" style="background: rgba(227, 127, 42, 0.1); color: #e37f2a;">Inflasi Terbaru</span>
+                            <div class="eko-ipg-value" id="inflasi-main-val" style="color: #e37f2a; font-size: 56px;">-</div>
+                            <div class="eko-ipg-growth" id="inflasi-main-desc">Bulan -</div>
+                        </div>
+
+                        <!-- Histogram Chart Area -->
+                        <div class="eko-ipg-chart-box" style="background: #ffffff; border: 1px solid #eaeaea; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+                            <div class="eko-chart-header" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <h4 class="eko-chart-title" style="font-size: 16px;">Grafik Inflasi Bulanan</h4>
+                                    <span class="eko-chart-subtitle" id="inflasi-chart-subtitle">Kabupaten Bintan (Persen)</span>
+                                </div>
+                                <select id="inflasi-year-select" class="form-select form-select-sm" style="width: auto; background-color: #ffffff; border: 1px solid #dee2e6; color: #333; font-weight: 600; cursor: pointer; border-radius: 6px; padding: 4px 28px 4px 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+                                    <option value="2026" selected>2026</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                                </select>
+                            </div>
+                            <div class="eko-histogram" id="inflasiHistogram" style="height: 180px;"></div>
+                        </div>
+                    </div>
+
+                    <div class="eko-description" style="margin-top: 24px;">
+                        <div style="background: #fafafa; border: 1px solid #eaeaea; border-radius: 16px; padding: 24px;">
+                            <h5 style="color: #1a1a2e; font-size: 16px; font-weight: 700; margin-bottom: 8px;">Penjelasan Tingkat Inflasi</h5>
+                            <p style="color: #444; margin: 0; padding: 0; font-size: 14px; line-height: 1.6;">Inflasi bulan ke bulan (m-to-m) membandingkan indeks harga konsumen bulan berjalan dengan bulan sebelumnya. Angka yang positif menunjukkan inflasi (kenaikan harga), sedangkan angka negatif menunjukkan deflasi (penurunan harga).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../assets/data/inflasi.js"></script>
+        <script>
+        (function() {
+            const WILAYAH_KEY = 'bintan';
+            const yearSelect = document.getElementById('inflasi-year-select');
+
+            function updateInflasi() {
+                if (typeof dataInflasi === 'undefined') return;
+                const wData = dataInflasi.wilayah[WILAYAH_KEY];
+                if(!wData) return;
+                const selectedYear = yearSelect.value;
+                const vals = wData.tahunan[selectedYear] || Array(12).fill(null);
+                let latestVal = null, latestMonthIdx = -1;
+                for(let i = 11; i >= 0; i--) {
+                    if(vals[i] !== null && vals[i] !== undefined) { latestVal = vals[i]; latestMonthIdx = i; break; }
+                }
+                if (latestVal !== null) {
+                    document.getElementById('inflasi-main-val').textContent = latestVal.toString().replace('.', ',') + '%';
+                    document.getElementById('inflasi-main-desc').textContent = dataInflasi.bulan[latestMonthIdx] + ' ' + selectedYear;
+                } else {
+                    document.getElementById('inflasi-main-val').textContent = '-';
+                    document.getElementById('inflasi-main-desc').textContent = 'Belum Ada Data';
+                }
+                document.getElementById('inflasi-chart-subtitle').textContent = 'Tahun ' + selectedYear + ' (Persen)';
+                document.getElementById('inflasiHistogram').innerHTML = '';
+                renderHistogramInflasi('inflasiHistogram', dataInflasi.bulan, vals, '#e37f2a');
+            }
+
+            if (yearSelect) yearSelect.addEventListener('change', updateInflasi);
+            setTimeout(updateInflasi, 100);
+
+            function renderHistogramInflasi(ctxId, years, vals, colorHex) {
+                const ctx = document.getElementById(ctxId);
+                if (!ctx) return;
+                const validVals = vals.filter(v => v !== null && v !== undefined);
+                if (validVals.length === 0) {
+                    ctx.innerHTML = '<div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#999; font-size:14px; font-style:italic;">Belum ada rilis data untuk tahun ini.</div>';
+                    return;
+                }
+                const valRange = Math.max(...validVals) - Math.min(...validVals);
+                const padding = Math.max(0.2, valRange * 0.2);
+                const minVal = Math.min(...validVals) - padding;
+                const maxVal = Math.max(...validVals) + padding;
+                const range = maxVal - minVal;
+                const yAxis = document.createElement('div'); yAxis.className = 'eko-y-axis';
+                for (let i = 3; i >= 0; i--) {
+                    const label = document.createElement('span');
+                    label.textContent = (minVal + (range / 3) * i).toFixed(1).replace('.', ',');
+                    yAxis.appendChild(label);
+                }
+                ctx.appendChild(yAxis);
+                const barsArea = document.createElement('div'); barsArea.className = 'eko-bars-area';
+                const zeroFromTop = (maxVal / range) * 100;
+                const zeroLine = document.createElement('div');
+                zeroLine.style.cssText = `position:absolute; left:0; right:0; top:${zeroFromTop}%; height:1px; background:#e0e0e0; z-index:1;`;
+                barsArea.appendChild(zeroLine);
+                years.forEach((yr, i) => {
+                    const val = vals[i];
+                    const barGroup = document.createElement('div'); barGroup.className = 'eko-bar-group';
+                    if (val !== null && val !== undefined) {
+                        const bar = document.createElement('div');
+                        bar.className = 'eko-bar' + (val < 0 ? ' eko-bar-negative' : '');
+                        bar.style.background = `linear-gradient(180deg, ${colorHex} 0%, ${colorHex}dd 100%)`;
+                        bar.style.boxShadow = `0 -2px 8px ${colorHex}33`;
+                        const heightPct = (Math.abs(val) / range) * 100;
+                        if (val >= 0) {
+                            bar.style.cssText += `height:0%; bottom:${(100 - zeroFromTop)}%; position:absolute; left:0; right:0;`;
+                            setTimeout(() => { bar.style.height = heightPct + '%'; }, 10 + i * 80);
+                        } else {
+                            bar.style.cssText += `height:0%; top:${zeroFromTop}%; position:absolute; left:0; right:0;`;
+                            setTimeout(() => { bar.style.height = heightPct + '%'; }, 10 + i * 80);
+                        }
+                        const valLabel = document.createElement('span'); valLabel.className = 'eko-bar-value';
+                        valLabel.textContent = val.toFixed(2).replace('.', ',');
+                        bar.appendChild(valLabel);
+                        const yrLabel = document.createElement('span'); yrLabel.className = 'eko-bar-year'; yrLabel.textContent = yr;
+                        barGroup.appendChild(bar); barGroup.appendChild(yrLabel);
+                    }
+                    barsArea.appendChild(barGroup);
+                });
+                ctx.appendChild(barsArea);
+            }
+        })();
+        </script>
+    </div>
+
+    <footer class="style-286" style="margin: 0; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); padding-left: calc(50vw - 50%); padding-right: calc(50vw - 50%); width: 100vw; box-sizing: border-box; display: block; clear: both;">
+        <div class="style-287">
+            <div class="style-288">
+                <div class="style-289">
+                    <h5 class="style-290">Badan Pusat Statistik Provinsi Kepulauan Riau</h5>
+                    <p class="style-291">
+                        Jl. Ahmad Yani No. 21 Tanjungpinang 29124<br class="style-292" />
+                        Telp. (0771) 4500155 / 4500150 (PST)<br class="style-293" />
+                        Fax. (0771) 4500157<br class="style-294" />
+                        Whatsapp <a href="https://wa.me/6281511262026" onmouseover="this.style.color='#25D366'; this.style.cursor='pointer'" onmouseout="this.style.color='inherit'; this.style.cursor='default'" class="style-295">0877-2000-2100</a><br class="style-296" />
+                        Mailbox : bps2100@bps.go.id
+                    </p>
+                </div>
+                <div class="style-297">
+                    <h5 class="style-298">Media Sosial</h5>
+                    <ul class="style-299">
+                        <li class="style-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="style-301" viewBox="0 0 16 16">
+                                <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334" class="style-302"></path>
+                            </svg> <a href="https://instagram.com/bpskepri" target="_blank" class="style-303">bpskepri</a>
+                        </li>
+                        <li class="style-308">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="style-309" viewBox="0 0 16 16">
+                                <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951" class="style-310"></path>
+                            </svg> <a href="https://www.facebook.com/bpskepri" target="_blank" class="style-311">BPS Provinsi Kepulauan Riau</a>
+                        </li>
+                        <li class="style-312">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="style-313" viewBox="0 0 16 16">
+                                <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z" class="style-314"></path>
+                            </svg> <a href="https://www.youtube.com/channel/UCLJy0XZipF0snyJdx4az2EA" target="_blank" class="style-315">BPS Provinsi Kepulauan Riau</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+<script>
+let heroIndex = 0;
+const heroSlides = document.querySelectorAll(".hero-slide");
+const heroDotsContainer = document.getElementById("heroDots");
+heroSlides.forEach((_, i) => {
+    const dot = document.createElement("span");
+    dot.classList.add("hero-dot");
+    dot.onclick = () => { heroIndex = i; showHeroSlide(heroIndex); };
+    heroDotsContainer.appendChild(dot);
+});
+const heroDots = document.querySelectorAll(".hero-dot");
+function showHeroSlide(index){
+    heroSlides.forEach(slide => slide.classList.remove("active"));
+    heroDots.forEach(dot => dot.classList.remove("active"));
+    heroSlides[index].classList.add("active");
+    heroDots[index].classList.add("active");
+}
+function heroMove(step){
+    heroIndex += step;
+    if(heroIndex >= heroSlides.length) heroIndex = 0;
+    if(heroIndex < 0) heroIndex = heroSlides.length - 1;
+    showHeroSlide(heroIndex);
+}
+showHeroSlide(heroIndex);
+setInterval(() => { heroMove(1); }, 5000);
+
+// Fix footer gap: remove padding-bottom from all ancestor containers of the footer
+(function() {
+    const footer = document.querySelector('footer.style-286');
+    if (!footer) return;
+    let el = footer.parentElement;
+    while (el && el !== document.body) {
+        el.style.paddingBottom = '0';
+        el = el.parentElement;
+    }
+    document.body.style.paddingBottom = '0';
+    document.body.style.marginBottom = '0';
+    footer.style.marginBottom = '0';
+})();
+</script>
+</body>
+</html>
