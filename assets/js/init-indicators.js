@@ -36,11 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const tahunArr = dataEkonomi.tahun;
             if (arr && arr.length > 0) {
                 const val = arr[arr.length - 1];
-                const year = tahunArr[tahunArr.length - 1];
+                const year = tahunArr[arr.length - 1]; // label tahun mengikuti data terakhir yang tersedia
                 const valEl = card.querySelector('.indikator-value');
                 const dateEl = card.querySelector('.indikator-date');
                 if (valEl) valEl.innerHTML = `${formatNum(val)}%`;
-                if (dateEl) dateEl.innerText = year;
+                const tw = dataEkonomi.wilayah[region].triwulan; // keterangan triwulan per wilayah (lihat ekonomi.js)
+                if (dateEl) dateEl.innerText = tw ? `${year} ${tw}` : year;
             }
         }
     };

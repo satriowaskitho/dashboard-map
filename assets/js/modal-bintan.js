@@ -9,7 +9,7 @@ const indicatorInfo = {
     def: "Indikator ekonomi makro yang menggambarkan seberapa jauh keberhasilan pembangunan suatu daerah dalam periode waktu tertentu",
     img: "assets/img/pertumbuhan ekonomi.jpg",
     insight: (rn) =>
-      `Pertumbuhan ekonomi di ${rn} pada tahun 2025 sebesar 6,43%.`,
+      `Pertumbuhan ekonomi di ${rn} pada tahun 2026 sebesar 5,87%.`,
   },
   tpt: {
     def: "Persentase jumlah pengangguran terhadap jumlah angkatan kerja",
